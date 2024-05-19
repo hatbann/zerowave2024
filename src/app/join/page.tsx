@@ -1,12 +1,13 @@
 'use client';
 
-import { signupHandler } from '@/utils/signup';
+import { signupHandler } from '@/utils/auth';
 import React from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
-interface JoinFormValue {
+export interface JoinFormValue {
   email: string;
   password: string;
+  user_name: string;
 }
 
 const page = () => {
@@ -16,7 +17,7 @@ const page = () => {
     formState: { errors },
     getValues,
   } = useForm<JoinFormValue>({ mode: 'onChange' });
-  const onSubmit = (data: FieldValues) => console.log(data);
+  const onSubmit = (data: JoinFormValue) => console.log(data);
 
   return (
     <div>
@@ -52,6 +53,17 @@ const page = () => {
             })}
           ></input>
           {errors.password && <span>{errors.password.message}</span>}
+        </div>
+        <div>
+          <label htmlFor="username">닉네임</label>
+          <input
+            type="text"
+            id="username"
+            {...register('user_name', {
+              required: '필수값입니다',
+            })}
+          ></input>
+          {errors.user_name && <span>{errors.user_name.message}</span>}
         </div>
         <button type="submit">submit</button>
       </form>

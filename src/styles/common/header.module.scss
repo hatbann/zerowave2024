@@ -1,0 +1,43 @@
+@import '../layout';
+
+.header-container {
+  @include flex-row(space-between, center);
+  padding: 20px;
+}
+
+.header-right {
+  @include flex-row(flex-start, center);
+  gap: 50px;
+  .logo-img {
+    width: 75px;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .menus {
+    @include flex-row(flex-start, center);
+    gap: 30px;
+    font-size: 17px;
+
+    span {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &.selected {
+        color: #00ed5d;
+      }
+    }
+  }
+}
+
+.header-left {
+  .login {
+    font-size: 17px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}

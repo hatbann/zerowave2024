@@ -4,6 +4,7 @@ import '../styles/globals.scss';
 import Main from './main';
 import Header from '@/components/common/Header';
 import SupabaseProvider from '@/components/common/SupabaseProvider';
+import Recoil from '@/components/common/Recoil';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,10 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SupabaseProvider>
-          <Main>
-            <Header />
-            {children}
-          </Main>
+          <Recoil>
+            <Main>
+              <Header />
+              {children}
+            </Main>
+          </Recoil>
         </SupabaseProvider>
       </body>
     </html>
