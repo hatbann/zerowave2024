@@ -1,16 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import style from '../../styles/common/header.module.scss';
-import { isLoginLoading, user } from '@/states/user';
+import { isLoginLoading, userState } from '@/states/user';
 import { useRecoilValue } from 'recoil';
 import { usePathname, useRouter } from 'next/navigation';
+import HeaderPopup from './HeaderPopup';
 
 const Header = () => {
   const isLoginLoadingState = useRecoilValue(isLoginLoading);
-  const userState = useRecoilValue(user);
+  const user = useRecoilValue(userState);
   const router = useRouter();
   const pathname = usePathname();
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
 
   return (
     <div className={style['header-container']}>
@@ -43,7 +45,7 @@ const Header = () => {
       </div>
       <div className={style['header-left']}>
         {!isLoginLoadingState ? (
-          userState.userId === -1 ? (
+          user.userId === -1 ? (
             <button
               className={style['login']}
               onClick={() => {
@@ -53,11 +55,18 @@ const Header = () => {
               로그인
             </button>
           ) : (
-            <span>{userState.username}</span>
+            <span
+              onClick={() => {
+                setIsOpenPopup((prev) => !prev);
+              }}
+            >
+              {user.username}
+            </span>
           )
         ) : (
           <div className={style['loading-userinfo-empty']}></div>
         )}
+        {isOpenPopup && <HeaderPopup />}
       </div>
     </div>
   );

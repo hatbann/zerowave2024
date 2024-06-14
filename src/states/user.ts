@@ -6,7 +6,7 @@ export const isLoginLoading = atom({
   default: false,
 });
 
-export const user = atom<userType>({
+export const userState = atom<userType>({
   key: 'user',
   default: {
     userId: -1,

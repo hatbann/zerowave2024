@@ -5,8 +5,7 @@ import Main from './main';
 import Header from '@/components/common/Header';
 import SupabaseProvider from '@/components/common/SupabaseProvider';
 import Recoil from '@/components/common/Recoil';
-
-const inter = Inter({ subsets: ['latin'] });
+import '../styles/globals.scss';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,15 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <SupabaseProvider>
-          <Recoil>
-            <Main>
-              <Header />
-              {children}
-            </Main>
-          </Recoil>
-        </SupabaseProvider>
+      <body>
+        <Recoil>
+          <Header />
+          <Main>{children}</Main>
+        </Recoil>
       </body>
     </html>
   );
