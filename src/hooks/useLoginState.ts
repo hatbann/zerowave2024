@@ -69,6 +69,8 @@ export const useLoginState = () => {
       } else {
         setIsLoading(false);
       }
+    } else {
+      setIsLoading(false);
     }
   }, []);
 

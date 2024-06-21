@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 
 export const isLoginLoading = atom({
   key: 'isLoginLoading',
-  default: false,
+  default: true,
 });
 
 export const userState = atom<userType>({

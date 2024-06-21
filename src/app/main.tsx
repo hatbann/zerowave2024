@@ -6,13 +6,14 @@ import { isLoginLoading, userState } from '@/states/user';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import style from '../styles/common/main.module.scss';
 
 const Main = ({ children }: { children: React.ReactNode }) => {
-  const pagesNeedSignedIn: string[] = ['/profile', '/review'];
+  const pagesNeedSignedIn: string[] = ['/profile', '/review', '/review/write'];
   const pagesNeedSignedOut: string[] = ['/login', '/join'];
 
   const user = useRecoilValue(userState);
-  const isLoading = useRecoilValue(isLoginLoading);
+  //const isLoading = useRecoilValue(isLoginLoading);
   const loading = useLoginState();
   const isLogin = user.userId !== -1;
   const pathname = usePathname();
@@ -24,10 +25,10 @@ const Main = ({ children }: { children: React.ReactNode }) => {
     pathname.includes(p)
   );
 
-  console.log(isLoading);
+  console.log(isLogin, isPageOnlyInLoggedIn, pathname);
 
-  if (isLoading) {
-    return <div>loading...</div>;
+  if (loading) {
+    return <div className={style['loading']}>loading...</div>;
   } else {
     if (isLogin) {
       if (isPageOnlyInLoggedIn) {
