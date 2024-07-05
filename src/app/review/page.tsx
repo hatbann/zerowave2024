@@ -21,7 +21,46 @@ const page = () => {
           },
         });
         const data = await res.json();
-        setReviews(data);
+        if (data.length !== 0) {
+          const users = data.map((res: ReviewType) => {
+            return res.author;
+          });
+          const ids = String(users);
+          const userData = await fetch(
+            `http://127.0.0.1:8000/user/get_nickname/?id__in[]=${ids}`,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              method: 'GET',
+            }
+          ).then((res) => res.json());
+          const userArr: { id: number; nickname: string }[] = JSON.parse(
+            userData.data
+          );
+          const reviewRes: ReviewType[] = [];
+          data.map((item: ReviewType) => {
+            const name = userArr.find(
+              (data) => data.id === item.author
+            )?.nickname;
+            const temp: ReviewType = {
+              id: item.id,
+              title: item.title,
+              content: item.content,
+              created_at: item.created_at,
+              updated_at: item.updated_at,
+              author: item.author,
+              authorName: name ?? '',
+              views: item.views,
+              location: item.location,
+              address: item.address,
+            };
+            reviewRes.push(temp);
+          });
+          setReviews(reviewRes);
+        } else {
+          setReviews([]);
+        }
       } catch (error) {
         console.error(error);
       } finally {
@@ -49,8 +88,15 @@ const page = () => {
           <div className={style['loading-container']}>loading...</div>
         ) : reviews.length !== 0 ? (
           <div className={style['review-list-container']}>
-            {reviews.map((review) => {
-              return <Review key={review.id} item={review} />;
+            {reviews.map((review, idx) => {
+              return (
+                <Review
+                  key={review.id}
+                  item={review}
+                  index={idx + 1}
+                  isLast={idx === reviews.length - 1}
+                />
+              );
             })}
           </div>
         ) : (

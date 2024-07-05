@@ -9,6 +9,70 @@
   gap: 30px;
 }
 
-.title {
+.head {
   font-size: 20px;
+}
+
+.form-section {
+  width: 400px;
+  @include flex-column(flex-start, flex-start);
+  gap: 5px;
+
+  .input {
+    width: 100%;
+    height: 87px;
+    position: relative;
+    @include flex-column(flex-start, flex-start);
+    gap: 8px;
+
+    &.content {
+      height: 350px;
+    }
+
+    label {
+      font-size: 12px;
+    }
+
+    input {
+      width: 100%;
+      height: 40px;
+      padding: 10px;
+      border: 1px solid $grayscale-black50;
+      border-radius: 7px;
+
+      &::placeholder {
+        color: $grayscale-black60;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      padding: 10px;
+      border: 1px solid $grayscale-black50;
+      border-radius: 7px;
+
+      &::placeholder {
+        color: $grayscale-black60;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .error {
+      width: 100%;
+      position: absolute;
+      color: $negative-normal-color;
+      font-size: 12px;
+      text-align: end;
+      bottom: 0;
+      right: 0;
+    }
+  }
 }

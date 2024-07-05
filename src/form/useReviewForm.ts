@@ -7,15 +7,23 @@ export type ReviewInputs = {
   title: string;
   content: string;
   location: string;
+  address: string;
 };
 
-export const useReviewForm = ({ location }: { location: string }) => {
+export const useReviewForm = ({
+  location,
+  address,
+}: {
+  location: string;
+  address: string;
+}) => {
   const f = useForm<ReviewInputs>({
     mode: 'onSubmit',
     defaultValues: {
       title: '',
       content: '',
       location: location,
+      address: address,
     },
   });
 

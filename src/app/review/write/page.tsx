@@ -7,7 +7,8 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '@/states/user';
 
 const page = () => {
-  const location = '제주특별자치도 제주시 첨단로 242';
+  const address = '제주특별자치도 제주시 첨단로 242';
+  const location = '우리집';
   const {
     f: {
       setError,
@@ -16,7 +17,7 @@ const page = () => {
       formState: { errors },
     },
     r,
-  } = useReviewForm({ location: location });
+  } = useReviewForm({ location: location, address: address });
   const user = useRecoilValue(userState);
 
   const onSubmit = async () => {
@@ -54,31 +55,34 @@ const page = () => {
 
   return (
     <div className={style['container']}>
-      <h1 className={style['title']}>글쓰기</h1>
-      <section>
+      <h1 className={style['head']}>글쓰기</h1>
+      <section className={style['form-section']}>
         <div className={`${style['input']} ${style['title']}`}>
           <label htmlFor="title">제목</label>
+          <input type="text" placeholder={'제목을 입력하세요'} {...r.title} />
+          {errors.title && (
+            <p className={style['error']}>{errors.title.message}</p>
+          )}
+        </div>
+        <div className={`${style['input']} ${style['location']}`}>
+          <label htmlFor="location">위치</label>
           <input
             type="text"
-            placeholder={
-              errors.title ? errors.title.message : '제목을 입력하세요'
-            }
-            {...r.title}
+            id="location"
+            value={`${location}(${address})`}
+            disabled
           />
-        </div>
-        <div className={style['location']}>
-          <span>위치</span>
-          <span>{location}</span>
         </div>
         <div className={`${style['input']} ${style['content']}`}>
           <label htmlFor="content">내용</label>
-          <input
-            type="text"
-            placeholder={
-              errors.content ? errors.content.message : '내용을 입력하세요'
-            }
+          <textarea
+            id="content"
+            placeholder={'내용을 입력하세요'}
             {...r.content}
           />
+          {errors.content && (
+            <p className={style['error']}>{errors.content.message}</p>
+          )}
         </div>
         <button
           onClick={() => {

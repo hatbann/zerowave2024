@@ -1,0 +1,73 @@
+@import '../../layout';
+@import '../../variables';
+.container {
+  width: 100%;
+  height: calc(100vh - 60px);
+  @include flex-column(center, center);
+  gap: 50px;
+}
+
+.content-wrapper {
+  width: 700px;
+  height: 600px;
+  @include flex-column(center, center);
+  gap: 20px;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  background: white;
+  padding: 0 20px;
+
+  @include flex-column(flex-start, flex-start);
+  gap: 50px;
+}
+
+.item {
+  @include flex-column(flex-start, flex-start);
+  gap: 5px;
+  width: 100%;
+  input {
+    border: none;
+    border-bottom: 1px solid $grayscale-black80;
+    padding: 5px;
+    width: 300px;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    height: 400px;
+    padding: 10px;
+  }
+
+  label {
+    color: $grayscale-black90;
+    font-size: 15px;
+  }
+}
+
+.btn-container {
+  @include flex-row(center, center);
+  gap: 20px;
+
+  button {
+    background-color: white;
+    border: none;
+    padding: 10px;
+    width: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &.cancel {
+      background-color: $grayscale-black40;
+    }
+
+    &.submit {
+      background-color: rgb(255, 191, 191);
+    }
+  }
+}
