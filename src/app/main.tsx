@@ -31,7 +31,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
     return <div className={style['loading']}>loading...</div>;
   } else {
     if (isLogin) {
-      if (isPageOnlyInLoggedIn) {
+      if (isPageOnlyInLoggedIn || !isPageOnlyInLoggedOut) {
         return <>{children}</>;
       } else if (isPageOnlyInLoggedOut) {
         return <RedirectHome />;
@@ -39,7 +39,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
     } else {
       if (isPageOnlyInLoggedIn) {
         return <RedirectHome />;
-      } else if (isPageOnlyInLoggedOut) {
+      } else if (isPageOnlyInLoggedOut || !isPageOnlyInLoggedIn) {
         return <>{children}</>;
       }
     }

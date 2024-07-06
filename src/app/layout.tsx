@@ -6,6 +6,7 @@ import Header from '@/components/common/Header';
 import SupabaseProvider from '@/components/common/SupabaseProvider';
 import Recoil from '@/components/common/Recoil';
 import '../styles/globals.scss';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
