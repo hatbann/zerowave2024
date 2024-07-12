@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/pages/map/style.module.scss';
+import PlaceItem from '@/components/pages/map/placeItem';
 
 declare global {
   interface Window {
@@ -15,8 +16,16 @@ type locationType = {
   errors?: { code: number; message: string };
 };
 
+export type PlaceListType = {
+  address_name: string;
+  place_name: string;
+  id: number;
+};
+
 const page = () => {
   const [map, setMap] = useState<any>(null);
+  const [placeLists, setPlaceLists] = useState<PlaceListType[]>([]);
+  const [selectedId, setSelectedId] = useState(-1);
 
   const onSuccessLoadLoc = (location: {
     coords: { latitude: number; longitude: number };
@@ -52,10 +61,18 @@ const page = () => {
 
     // 키워드 검색 완료 시 호출되는 콜백함수 입니다
     function placesSearchCB(data: any, status: any, pagination: any) {
-      console.log(status);
       if (status === window.kakao.maps.services.Status.OK) {
+        console.log(data);
         for (let i = 0; i < data.length; i++) {
           displayMarker(data[i]);
+          setPlaceLists((prev) => [
+            ...prev,
+            {
+              address_name: data[i].address_name,
+              place_name: data[i].place_name,
+              id: data[i].id,
+            },
+          ]);
         }
       }
     }
@@ -75,11 +92,13 @@ const page = () => {
             place.place_name +
             '</div>'
         );
+        setSelectedId(place.id);
         infowindow.open(map, marker);
       });
     }
   };
   const handleCenterChanged = (map: any) => {
+    setPlaceLists([]);
     const level = map.getLevel();
 
     // 지도의 중심좌표를 얻어옵니다
@@ -132,7 +151,11 @@ const page = () => {
     <div className={style['container']}>
       <h1>ZEROWAVE MAP</h1>
       <div className={style['map-container']}>
-        <div className={style['location-lists']}></div>
+        <div className={style['location-lists']}>
+          {placeLists.map((place) => (
+            <PlaceItem placeItem={place} isSelected={place.id === selectedId} />
+          ))}
+        </div>
         <div
           id="map"
           style={{ width: '100%', height: '100%' }}
