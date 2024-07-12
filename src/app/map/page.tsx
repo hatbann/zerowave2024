@@ -28,18 +28,18 @@ const page = () => {
 
     const onLoadKakaoAPI = () => {
       window.kakao.maps.load(() => {
-        tempF(location.coords.latitude, location.coords.longitude);
+        tempF(location.coords.latitude, location.coords.longitude, 3);
       });
     };
 
     kakaoMapScript.addEventListener('load', onLoadKakaoAPI);
   };
 
-  const tempF = (lat: number, lng: number) => {
+  const tempF = (lat: number, lng: number, level: number) => {
     const container = document.getElementById('map');
     const options = {
       center: new window.kakao.maps.LatLng(lat, lng),
-      level: 3,
+      level: level,
     };
 
     const map = new window.kakao.maps.Map(container, options);
@@ -85,12 +85,15 @@ const page = () => {
     // 지도의 중심좌표를 얻어옵니다
     const latlng = map.getCenter();
     console.log(latlng);
-    tempF(latlng.Ma, latlng.La);
+    tempF(latlng.Ma, latlng.La, level);
   };
 
   useEffect(() => {
     if (map) {
       window.kakao.maps.event.addListener(map, 'dragend', () =>
+        handleCenterChanged(map)
+      );
+      window.kakao.maps.event.addListener(map, 'zoom_changed', () =>
         handleCenterChanged(map)
       );
     }
