@@ -150,8 +150,11 @@ const page = () => {
   return (
     <div className={style['container']}>
       <div className={style['top']}>
-        <h1>Zerowave Map</h1>
-        <img src="/images/png/Location.png" alt="location" />
+        <div className={style['title']}>
+          <h1>Zerowave Map</h1>
+          <img src="/images/png/Location.png" alt="location" />
+        </div>
+        <p>제로웨이스트를 실천하는 공간들을 추가해주세요</p>
       </div>
       <div className={style['map-container']}>
         <div className={style['location-lists']}>

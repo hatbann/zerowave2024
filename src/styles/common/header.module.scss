@@ -35,10 +35,15 @@
 }
 
 .header-right {
+  position: relative;
   .login {
     font-size: 17px;
     border: none;
     background-color: transparent;
+    cursor: pointer;
+  }
+
+  .user-name {
     cursor: pointer;
   }
 }

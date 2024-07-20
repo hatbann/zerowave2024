@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import style from '../../styles/common/header.module.scss';
 import { isLoginLoading, userState } from '@/states/user';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { usePathname, useRouter } from 'next/navigation';
 import HeaderPopup from './HeaderPopup';
 
@@ -13,6 +13,21 @@ const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [isOpenPopup, setIsOpenPopup] = useState(false);
+  const resetUser = useResetRecoilState(userState);
+
+  const logout = async () => {
+    const res = await fetch('http://127.0.0.1:8000/user/logout/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('refresh');
+    resetUser();
+    setIsOpenPopup(false);
+  };
 
   return (
     <div className={style['header-container']}>
@@ -59,6 +74,7 @@ const Header = () => {
               onClick={() => {
                 setIsOpenPopup((prev) => !prev);
               }}
+              className={style['user-name']}
             >
               {user.username}
             </span>
@@ -66,7 +82,15 @@ const Header = () => {
         ) : (
           <div className={style['loading-userinfo-empty']}></div>
         )}
-        {isOpenPopup && <HeaderPopup />}
+        {isOpenPopup && (
+          <HeaderPopup
+            handleLogout={logout}
+            handleRouteProfile={() => {
+              router.push('/profile');
+              setIsOpenPopup(false);
+            }}
+          />
+        )}
       </div>
     </div>
   );

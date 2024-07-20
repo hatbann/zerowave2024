@@ -1,0 +1,27 @@
+@import '../layout';
+@import '../variables';
+
+.header-popup {
+  top: 30px;
+  right: 5px;
+  width: 200px;
+  position: absolute;
+  background-color: white;
+
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.popup-item {
+  @include flex-row(flex-start, center);
+  gap: 10px;
+  height: 60px;
+  border-bottom: 1px solid $grayscale-black20;
+  padding: 10px;
+  cursor: pointer;
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}

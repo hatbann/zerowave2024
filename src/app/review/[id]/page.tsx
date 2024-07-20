@@ -13,6 +13,7 @@ export type ReviewDetailType = {
   author: number;
   authorName: string;
   content: string;
+  views: number;
 };
 
 const page = ({ params }: { params: { id: string } }) => {
@@ -21,6 +22,7 @@ const page = ({ params }: { params: { id: string } }) => {
     author: -1,
     authorName: '',
     content: '',
+    views: 0,
   });
   const [isLoadingData, setIsLoadingData] = useState(true);
   const user = useRecoilValue(userState);
@@ -75,6 +77,7 @@ const page = ({ params }: { params: { id: string } }) => {
           author: res.author,
           authorName: userData.nickname,
           content: res.content,
+          views: res.views,
         };
         setData(result);
       } else {
@@ -83,6 +86,7 @@ const page = ({ params }: { params: { id: string } }) => {
           author: -1,
           authorName: '',
           content: '',
+          views: 0,
         });
       }
 
@@ -142,7 +146,13 @@ const page = ({ params }: { params: { id: string } }) => {
                   <p className={style['item-value']}>{data.authorName}</p>
                 </div>
               </div>
-              <div className={style['content-body']}>{data.content}</div>
+              <div className={style['content-body']}>
+                <div className={style['views']}>
+                  <span>조회수</span>
+                  <span>{data.views}회</span>
+                </div>
+                <div className={style['contents']}>{data.content}d</div>
+              </div>
             </section>
             {user.userId === data.author && (
               <div className={style['btn-container']}>

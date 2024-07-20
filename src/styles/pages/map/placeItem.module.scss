@@ -3,7 +3,7 @@
 
 .item-container {
   width: 100%;
-  height: 70px;
+  height: 80px;
   border-bottom: 1px solid black;
   @include flex-row(flex-start, center);
   padding: 5px;
@@ -11,6 +11,10 @@
 
   &.selected {
     background-color: rgba(128, 128, 128, 0.329);
+  }
+
+  &:last-child {
+    border-bottom: none;
   }
 }
 
@@ -31,10 +35,12 @@
 
     .place {
       font-weight: 600;
-      width: 90%;
+      width: 95%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      color: #7fa17f;
+      font-size: 14px;
     }
 
     .address {

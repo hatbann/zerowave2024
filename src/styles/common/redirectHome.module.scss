@@ -1,0 +1,47 @@
+@import '../layout';
+@import '../variables';
+
+.container {
+  width: 100%;
+  height: calc(100vh - 300px);
+  @include flex-column(center, center);
+  gap: 50px;
+
+  h3 {
+    font-size: 25px;
+  }
+}
+
+.btn-container {
+  width: 100%;
+  @include flex-row(center, center);
+  gap: 10px;
+  button {
+    width: 196px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: $grayscale-black90;
+    font-weight: 600;
+    background-color: white;
+    border: 1px solid $grayscale-black80;
+
+    &.home {
+      &:hover {
+        background-color: $grayscale-black20;
+      }
+    }
+
+    &.login {
+      background-color: $grayscale-black80;
+      color: white;
+
+      &:hover {
+        background-color: $grayscale-black90;
+      }
+    }
+  }
+}

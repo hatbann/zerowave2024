@@ -14,12 +14,15 @@ const page = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8000/review/post/', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const res = await fetch(
+          'http://127.0.0.1:8000/review/post/?order_by=-created_at',
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
         const data = await res.json();
         if (data.length !== 0) {
           const users = data.map((res: ReviewType) => {

@@ -1,0 +1,101 @@
+@import '../font';
+@import '../variables';
+@import '../layout';
+
+.home-container {
+  @include flex-column(flex-start, center);
+}
+
+.section {
+  width: 100%;
+  height: 100vh;
+  @include flex-row(center, center);
+  gap: 40px;
+
+  .text {
+    @include flex-column(flex-start, flex-start);
+    gap: 40px;
+
+    .top {
+      @include flex-column(flex-start, flex-start);
+      gap: 5px;
+
+      .title {
+        font-size: 36px;
+        font-weight: 600;
+      }
+
+      .sub {
+        font-size: 20px;
+      }
+    }
+
+    .desc {
+      font-size: 18px;
+      line-height: 30px;
+    }
+  }
+
+  .paragraph {
+    @include flex-column(flex-start, flex-start);
+    gap: 20px;
+
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  &.num1 {
+    img {
+      width: 50%;
+    }
+
+    .text {
+      width: 50%;
+    }
+
+    .sub {
+      color: $main-color;
+    }
+  }
+
+  &.num2 {
+    img {
+      width: 50%;
+    }
+
+    .title {
+      font-size: 32px !important;
+      color: #0475ff;
+    }
+
+    .text {
+      width: 50%;
+    }
+  }
+
+  &.num3 {
+    img {
+      width: 50%;
+    }
+
+    .title {
+      color: $main-color;
+    }
+  }
+
+  &.num4 {
+    @include flex-column(flex-start, center);
+
+    .bottom {
+      @include flex-row(flex-start, center);
+
+      .left {
+        @include flex-column(flex-start, center);
+        gap: 20px;
+        img {
+          width: 250px;
+        }
+      }
+    }
+  }
+}

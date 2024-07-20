@@ -1,0 +1,96 @@
+@import '../../layout';
+@import '../../variables';
+
+.container {
+  width: 100%;
+  min-height: calc(100vh - 95px);
+  padding: 50px;
+  @include flex-column(flex-start, flex-start);
+  gap: 60px;
+}
+
+.profile,
+.my-review {
+  width: 100%;
+  @include flex-column(flex-start, flex-start);
+  gap: 15px;
+  .title {
+    width: 100%;
+    text-align: start;
+    color: #7fa17f;
+  }
+}
+
+.profile {
+  .info {
+    width: 100%;
+    @include flex-column(flex-start, flex-start);
+    gap: 5px;
+
+    .label {
+      font-weight: 600;
+    }
+  }
+}
+
+.my-review {
+  .table {
+    width: 100%;
+    @include flex-column(flex-start, flex-start);
+    border: 1px solid $grayscale-black80;
+    border-radius: 8px;
+
+    .head {
+      width: 100%;
+      @include flex-row(flex-start, center);
+      height: 40px;
+      padding: 0 10px;
+      border-bottom: 1px solid $grayscale-black80;
+
+      span {
+        &:nth-child(1) {
+          width: 70%;
+        }
+
+        &:nth-child(2) {
+          width: 15%;
+          text-align: center;
+        }
+
+        &:nth-child(3) {
+          width: 15%;
+          text-align: center;
+        }
+      }
+    }
+
+    .body {
+      width: 100%;
+      @include flex-column(flex-start, flex-start);
+
+      .item {
+        width: 100%;
+        @include flex-row(flex-start, center);
+        height: 50px;
+        padding: 0 10px;
+        border-bottom: 1px solid $grayscale-black30;
+        cursor: pointer;
+        span {
+          &:nth-child(1) {
+            width: 70%;
+          }
+
+          &:nth-child(2) {
+            width: 15%;
+            text-align: center;
+          }
+
+          &:nth-child(3) {
+            width: 15%;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
