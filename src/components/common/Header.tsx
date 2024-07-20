@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <div className={style['header-container']}>
-      <div className={style['header-right']}>
+      <div className={style['header-left']}>
         <img
           src="/images/png/mainLogo.png"
           className={style['logo-img']}
@@ -43,7 +43,7 @@ const Header = () => {
           </span>
         </div>
       </div>
-      <div className={style['header-left']}>
+      <div className={style['header-right']}>
         {!isLoginLoadingState ? (
           user.userId === -1 ? (
             <button

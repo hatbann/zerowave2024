@@ -149,7 +149,10 @@ const page = () => {
 
   return (
     <div className={style['container']}>
-      <h1>ZEROWAVE MAP</h1>
+      <div className={style['top']}>
+        <h1>Zerowave Map</h1>
+        <img src="/images/png/Location.png" alt="location" />
+      </div>
       <div className={style['map-container']}>
         <div className={style['location-lists']}>
           {placeLists.map((place) => (
@@ -160,9 +163,7 @@ const page = () => {
           id="map"
           style={{ width: '100%', height: '100%' }}
           className={style['map']}
-        >
-          d
-        </div>
+        ></div>
       </div>
     </div>
   );

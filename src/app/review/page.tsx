@@ -74,15 +74,6 @@ const page = () => {
   return (
     <div className={style['container']}>
       <h1 className={style['title']}>리뷰</h1>
-      <div className={style['write']}>
-        <span
-          onClick={() => {
-            router.push('review/write');
-          }}
-        >
-          글쓰기
-        </span>
-      </div>
       <section className={style['review-wrapper']}>
         {isLoading ? (
           <div className={style['loading-container']}>loading...</div>

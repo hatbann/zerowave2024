@@ -6,7 +6,8 @@
   height: 70px;
   border-bottom: 1px solid black;
   @include flex-row(flex-start, center);
-  padding: 5px 0;
+  padding: 5px;
+  gap: 5px;
 
   &.selected {
     background-color: rgba(128, 128, 128, 0.329);
@@ -17,17 +18,16 @@
   @include flex-row(center, center);
   gap: 10px;
   font-size: 12px;
-  width: calc(100% - 30px);
+  width: calc(100% - 40px - 5px);
   .img {
     width: 30px;
     height: 30px;
-    background-color: red;
   }
 
   .info {
     @include flex-column(flex-start, flex-start);
     gap: 5px;
-    width: calc(100% - 30px - 10px);
+    width: calc(100% - 40px - 10px);
 
     .place {
       font-weight: 600;
@@ -46,5 +46,10 @@
 
 .button {
   font-size: 12px;
-  width: 30px;
+  width: 40px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid $grayscale-black70;
+  padding-bottom: 2px;
+  cursor: pointer;
 }

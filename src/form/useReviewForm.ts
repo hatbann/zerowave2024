@@ -14,8 +14,8 @@ export const useReviewForm = ({
   location,
   address,
 }: {
-  location: string;
-  address: string;
+  location: string | undefined;
+  address: string | undefined;
 }) => {
   const f = useForm<ReviewInputs>({
     mode: 'onSubmit',

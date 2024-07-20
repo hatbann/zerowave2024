@@ -15,7 +15,7 @@
 
 .form-section {
   width: 400px;
-  @include flex-column(flex-start, flex-start);
+  @include flex-column(flex-start, center);
   gap: 5px;
 
   .input {
@@ -73,6 +73,83 @@
       text-align: end;
       bottom: 0;
       right: 0;
+    }
+  }
+
+  .write-btn {
+    width: 192px;
+    height: 44px;
+    background-color: white;
+    border-radius: 8px;
+    color: $grayscale-black80;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grayscale-black20;
+    }
+  }
+}
+
+.empty {
+  width: 100%;
+  height: calc(100vh - 200px);
+  @include flex-column(center, center);
+  gap: 30px;
+
+  .desc {
+    @include flex-column(center, center);
+    gap: 10px;
+    color: $grayscale-black80;
+    p {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    span {
+      font-size: 13px;
+    }
+  }
+
+  button {
+    width: 192px;
+    height: 44px;
+    background-color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grayscale-black20;
+    }
+  }
+}
+
+.success-container {
+  width: 100%;
+  height: calc(100vh - 200px);
+  @include flex-column(center, center);
+  gap: 30px;
+
+  h4 {
+    font-size: 20px;
+  }
+
+  img {
+    width: 200px;
+    height: 200px;
+  }
+
+  button {
+    width: 192px;
+    height: 44px;
+    background-color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grayscale-black20;
     }
   }
 }

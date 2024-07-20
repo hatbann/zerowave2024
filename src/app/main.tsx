@@ -4,9 +4,10 @@ import RedirectHome from '@/components/common/RedirectHome';
 import { useLoginState } from '@/hooks/useLoginState';
 import { isLoginLoading, userState } from '@/states/user';
 import { usePathname } from 'next/navigation';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import style from '../styles/common/main.module.scss';
+import { selectedPlaceState } from '@/states/place';
 
 const Main = ({ children }: { children: React.ReactNode }) => {
   const pagesNeedSignedIn: string[] = ['/profile', '/review', '/review/write'];
@@ -17,6 +18,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
   const loading = useLoginState();
   const isLogin = user.userId !== -1;
   const pathname = usePathname();
+  const setSelectedPlace = useSetRecoilState(selectedPlaceState);
 
   const isPageOnlyInLoggedIn = pagesNeedSignedIn.some((p) =>
     pathname.includes(p)
@@ -26,6 +28,17 @@ const Main = ({ children }: { children: React.ReactNode }) => {
   );
 
   console.log(isLogin, isPageOnlyInLoggedIn, pathname);
+
+  useEffect(() => {
+    const address = localStorage.getItem('address');
+    const place = localStorage.getItem('placeName');
+    if (address && place) {
+      setSelectedPlace({
+        address,
+        placeName: place,
+      });
+    }
+  }, []);
 
   if (loading) {
     return <div className={style['loading']}>loading...</div>;

@@ -8,6 +8,20 @@
   gap: 50px;
 }
 
+.location {
+  @include flex-row(center, flex-end);
+  gap: 5px;
+
+  h3 {
+    font-size: 23px;
+  }
+
+  span {
+    font-size: 13px;
+    color: $grayscale-black70;
+  }
+}
+
 .content-wrapper {
   width: 700px;
   height: 600px;

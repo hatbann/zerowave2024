@@ -10,3 +10,8 @@ export type ReviewType = {
   location: string;
   address: string;
 };
+
+export type PlaceType = {
+  placeName: string | undefined;
+  address: string | undefined;
+};

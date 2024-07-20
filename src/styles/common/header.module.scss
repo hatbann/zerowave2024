@@ -5,9 +5,9 @@
   padding: 20px;
 }
 
-.header-right {
+.header-left {
   @include flex-row(flex-start, center);
-  gap: 50px;
+  gap: 60px;
   .logo-img {
     width: 75px;
     height: auto;
@@ -16,8 +16,9 @@
 
   .menus {
     @include flex-row(flex-start, center);
-    gap: 30px;
-    font-size: 17px;
+    gap: 35px;
+    font-size: 20px;
+    font-weight: 600;
 
     span {
       cursor: pointer;
@@ -33,7 +34,7 @@
   }
 }
 
-.header-left {
+.header-right {
   .login {
     font-size: 17px;
     border: none;

@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import style from '../../../styles/pages/review/reviewDetail.module.scss';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/states/user';
+import { PlaceType } from '@/types/boardType';
 
 export type ReviewDetailType = {
   title: string;
@@ -26,6 +27,10 @@ const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
+  const [place, setPlace] = useState<PlaceType>({
+    address: undefined,
+    placeName: undefined,
+  });
 
   useEffect(() => {
     const getData = async () => {
@@ -59,7 +64,12 @@ const page = ({ params }: { params: { id: string } }) => {
             return parsingData[0];
           });
 
-        console.log(userData);
+        setPlace({
+          address: res.address,
+          placeName: res.location,
+        });
+
+        console.log(res);
         const result: ReviewDetailType = {
           title: res.title,
           author: res.author,
@@ -114,7 +124,10 @@ const page = ({ params }: { params: { id: string } }) => {
         <div className={style['loading']}>loading...</div>
       ) : (
         <>
-          <div className={style['location']}>{}</div>
+          <div className={style['location']}>
+            <h3>{place.placeName}</h3>
+            {place.address !== '' && <span>({place.address})</span>}
+          </div>
           <div className={style['content-wrapper']}>
             <section className={style['content']}>
               <div className={style['content-header']}>

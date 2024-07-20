@@ -1,6 +1,9 @@
 import { PlaceListType } from '@/app/map/page';
 import React from 'react';
 import style from '../../../styles/pages/map/placeItem.module.scss';
+import { useRouter } from 'next/navigation';
+import { useSetRecoilState } from 'recoil';
+import { selectedPlaceState } from '@/states/place';
 
 type Props = {
   placeItem: PlaceListType;
@@ -8,6 +11,8 @@ type Props = {
 };
 
 const PlaceItem = ({ placeItem, isSelected }: Props) => {
+  const router = useRouter();
+  const setSelectedPlace = useSetRecoilState(selectedPlaceState);
   return (
     <div
       className={
@@ -17,13 +22,28 @@ const PlaceItem = ({ placeItem, isSelected }: Props) => {
       }
     >
       <div className={style['item-info']}>
-        <img src="" alt="" className={style['img']} />
+        <img src="/images/png/place.png" alt="place" className={style['img']} />
         <div className={style['info']}>
           <span className={style['place']}>{placeItem.place_name}</span>
           <span className={style['address']}>{placeItem.address_name}</span>
         </div>
       </div>
-      <button className={style['button']}>글쓰기</button>
+      <button
+        className={style['button']}
+        onClick={() => {
+          localStorage.removeItem('placeName');
+          localStorage.removeItem('address');
+          setSelectedPlace({
+            placeName: placeItem.place_name,
+            address: placeItem.address_name,
+          });
+          localStorage.setItem('placeName', placeItem.place_name);
+          localStorage.setItem('address', placeItem.address_name);
+          router.push('/review/write');
+        }}
+      >
+        글쓰기
+      </button>
     </div>
   );
 };
