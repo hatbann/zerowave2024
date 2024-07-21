@@ -30,10 +30,10 @@ export const useSignupForm = () => {
     }),
     password: f.register('password', {
       required: true,
-      /*       pattern: {
+      pattern: {
         value: U.validPasswordPattern,
         message: '비밀번호 형식을 확인해주세요',
-      }, */
+      },
     }),
     re_password: f.register('re_password', {
       required: true,

@@ -27,10 +27,10 @@ export const useSinginForm = () => {
     }),
     password: f.register('password', {
       required: true,
-      /*       pattern: {
+      pattern: {
         value: U.validPasswordPattern,
-        message: "비밀번호 형식을 확인해주세요",
-      }, */
+        message: '비밀번호 형식을 확인해주세요',
+      },
     }),
   };
 

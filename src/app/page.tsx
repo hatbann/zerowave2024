@@ -84,7 +84,19 @@ export default function Home() {
               추가할 수 있습니다.
             </p>
           </div>
-          <div className={style['right']}></div>
+          <div className={style['right']}>
+            <div className={style['util']}>
+              <h4>제로 웨이스트 샵 정보 제공</h4>
+              <p>
+                제로웨이스트를 실천하고 있는 공간에 대한 정보를 한 눈에 파악할
+                수 있습니다.
+              </p>
+            </div>
+            <div className={style['util']}>
+              <h4>직접 용기내 챌린지 샵 정보 추가</h4>
+              <p>용기내 챌린지가 가능한 가게에 대한 정보를 추가해보세요</p>
+            </div>
+          </div>
         </div>
       </section>
     </main>
