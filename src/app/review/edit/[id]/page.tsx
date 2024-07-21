@@ -10,6 +10,7 @@ import style from '../../../../styles/pages/review/reviewEdit.module.scss';
 import { ReviewDetailType } from '../../[id]/page';
 import { useReviewForm } from '@/form/useReviewForm';
 import { userState } from '@/states/user';
+import { PlaceType } from '@/types/boardType';
 
 const page = ({ params }: { params: { id: string } }) => {
   const [data, setData] = useState<ReviewDetailType>({
@@ -17,10 +18,14 @@ const page = ({ params }: { params: { id: string } }) => {
     author: -1,
     authorName: '',
     content: '',
+    views: 0,
   });
   const [isLoadingData, setIsLoadingData] = useState(true);
   const router = useRouter();
-  const location = '제주특별자치도 제주시 첨단로 242';
+  const [placeInfo, setPlaceInfo] = useState<PlaceType>({
+    placeName: undefined,
+    address: undefined,
+  });
 
   const {
     f: {
@@ -30,7 +35,10 @@ const page = ({ params }: { params: { id: string } }) => {
       formState: { errors },
     },
     r,
-  } = useReviewForm({ location: location });
+  } = useReviewForm({
+    location: placeInfo.placeName,
+    address: placeInfo.address,
+  });
   const user = useRecoilValue(userState);
 
   useEffect(() => {
@@ -66,11 +74,16 @@ const page = ({ params }: { params: { id: string } }) => {
             return parsingData[0];
           });
 
+        setPlaceInfo({
+          placeName: res.location,
+          address: res.address,
+        });
         const result: ReviewDetailType = {
           title: res.title,
           author: res.author,
           authorName: userData.nickname,
           content: res.content,
+          views: res.views,
         };
         setValue('title', res.title);
         setValue('content', res.content);
@@ -81,6 +94,7 @@ const page = ({ params }: { params: { id: string } }) => {
           author: -1,
           authorName: '',
           content: '',
+          views: 0,
         });
       }
 
