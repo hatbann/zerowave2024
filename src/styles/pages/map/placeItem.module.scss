@@ -41,6 +41,11 @@
       text-overflow: ellipsis;
       color: #7fa17f;
       font-size: 14px;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .address {

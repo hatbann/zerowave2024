@@ -71,3 +71,11 @@
   border: 1px solid $main-dark-color;
   border-radius: 10px;
 }
+
+.focus {
+  font-size: 15px;
+  background-color: $main-dark-color;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}

@@ -8,9 +8,10 @@ import { selectedPlaceState } from '@/states/place';
 type Props = {
   placeItem: PlaceListType;
   isSelected: boolean;
+  clickHandler: (address: string, placeName: string) => void;
 };
 
-const PlaceItem = ({ placeItem, isSelected }: Props) => {
+const PlaceItem = ({ placeItem, isSelected, clickHandler }: Props) => {
   const router = useRouter();
   const setSelectedPlace = useSetRecoilState(selectedPlaceState);
   return (
@@ -24,7 +25,14 @@ const PlaceItem = ({ placeItem, isSelected }: Props) => {
       <div className={style['item-info']}>
         <img src="/images/png/place.png" alt="place" className={style['img']} />
         <div className={style['info']}>
-          <span className={style['place']}>{placeItem.place_name}</span>
+          <span
+            className={style['place']}
+            onClick={() => {
+              clickHandler(placeItem.address_name, placeItem.place_name);
+            }}
+          >
+            {placeItem.place_name}
+          </span>
           <span className={style['address']}>{placeItem.address_name}</span>
         </div>
       </div>

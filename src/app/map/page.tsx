@@ -24,6 +24,7 @@ export type PlaceListType = {
 
 const page = () => {
   const [map, setMap] = useState<any>(null);
+  const [geocoder, setGeocoder] = useState<any>(null);
   const [placeLists, setPlaceLists] = useState<PlaceListType[]>([]);
   const [selectedId, setSelectedId] = useState(-1);
 
@@ -115,6 +116,9 @@ const page = () => {
       window.kakao.maps.event.addListener(map, 'zoom_changed', () =>
         handleCenterChanged(map)
       );
+
+      const tempGeocoder = new window.kakao.maps.services.Geocoder();
+      setGeocoder(tempGeocoder);
     }
   }, [map]);
 
@@ -147,6 +151,30 @@ const page = () => {
     }
   }, []);
 
+  const clickAddress = (address: string, placeName: string) => {
+    console.log(address);
+
+    geocoder.addressSearch(address, function (result: any, status: any) {
+      // 정상적으로 검색이 완료됐으면
+      if (status === window.kakao.maps.services.Status.OK) {
+        var coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+        console.log(coords);
+        // 결과값으로 받은 위치를 마커로 표시합니다
+
+        var customOverlay = new window.kakao.maps.CustomOverlay({
+          position: coords,
+          content: `<div class=${style['focus']}>${placeName}</div>`,
+        });
+
+        // 커스텀 오버레이를 지도에 표시합니다
+        customOverlay.setMap(map);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+      }
+    });
+  };
+
   return (
     <div className={style['container']}>
       <div className={style['top']}>
@@ -159,7 +187,11 @@ const page = () => {
       <div className={style['map-container']}>
         <div className={style['location-lists']}>
           {placeLists.map((place) => (
-            <PlaceItem placeItem={place} isSelected={place.id === selectedId} />
+            <PlaceItem
+              clickHandler={clickAddress}
+              placeItem={place}
+              isSelected={place.id === selectedId}
+            />
           ))}
         </div>
         <div
