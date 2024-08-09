@@ -42,14 +42,18 @@ const page = () => {
           author: user.userId,
           location: getValues('location'),
           address: getValues('address'),
+          views: 0,
         };
-        const response = await fetch('http://127.0.0.1:8000/review/post/', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify(bodyData),
-        })
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify(bodyData),
+          }
+        )
           .then((res) => {
             res.json();
           })

@@ -1,4 +1,6 @@
+import { ObjectId } from 'mongodb';
+
 export type userType = {
-  userId: number;
+  userId: string;
   username: string;
 };

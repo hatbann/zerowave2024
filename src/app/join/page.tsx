@@ -34,23 +34,28 @@ const page = () => {
         email: getValues('email'),
         password: getValues('password'),
       };
-      const res = await fetch('http://127.0.0.1:8000/user/register/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bodyData),
-      }).then((res) => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/signup`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(bodyData),
+        }
+      ).then((res) => {
         return res.json();
       });
 
-      window.localStorage.setItem('token', JSON.stringify(res.token.access));
+      /*       window.localStorage.setItem('token', JSON.stringify(res.token.access));
       window.localStorage.setItem('refresh', JSON.stringify(res.token.refresh));
       setUser({
         username: res.user.nickname,
         userId: res.user.id,
-      });
-      router.push('/signup/success');
+      }); */
+      if (res.type === 'success') {
+        router.push('/join/success');
+      }
       return res;
     } catch (e) {
       console.log(e);

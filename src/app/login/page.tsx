@@ -6,6 +6,8 @@ import style from '../../styles/pages/login/style.module.scss';
 import { useRecoilState } from 'recoil';
 import { userState } from '@/states/user';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { useSession } from '@supabase/auth-helpers-react';
 
 const page = () => {
   const {
@@ -28,7 +30,7 @@ const page = () => {
       };
 
       const res: { user: any; token: any } = await fetch(
-        'http://127.0.0.1:8000/user/login/',
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/signin`,
         {
           method: 'POST',
           headers: {
@@ -39,17 +41,35 @@ const page = () => {
       ).then((res) => {
         return res.json();
       });
-      window.localStorage.setItem('token', res.token.access);
-      window.localStorage.setItem('refresh', res.token.refresh);
+      console.log(res.user._id);
+      /*       window.localStorage.setItem('token', res.token.access);
+      window.localStorage.setItem('refresh', res.token.refresh) */
       setUser({
         username: res.user.nickname,
-        userId: res.user.id,
+        userId: res.user._id,
       });
       router.push('/');
     } catch (error) {
       console.log(error);
     }
   };
+
+  /*   const handleSubmit = async () => {
+    await signIn('credentials', {
+      email: getValues('email'),
+      password: getValues('password'),
+      redirect: false,
+    }).then((result) => {
+      console.log(result);
+
+      if (result!.error) {
+        alert(result?.error);
+        return;
+      }
+
+      router.push('/');
+    });
+  }; */
 
   return (
     <div className={style['container']}>

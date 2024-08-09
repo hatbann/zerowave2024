@@ -9,7 +9,7 @@ export const isLoginLoading = atom({
 export const userState = atom<userType>({
   key: 'user',
   default: {
-    userId: -1,
+    userId: '',
     username: '',
     /*     userId: 1,
     username: '햇반', */
