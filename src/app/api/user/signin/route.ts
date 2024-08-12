@@ -1,13 +1,15 @@
-import { signIn } from 'next-auth/react';
 /** @format */
 
-import { UserType } from '@/models/user';
-import dbConnect from '@/utils/database';
-import User from '@/models/user';
-import { NextRequest, NextResponse } from 'next/server';
+import { signIn } from "next-auth/react";
+/** @format */
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+import { UserType } from "@/models/user";
+import dbConnect from "@/utils/database";
+import User from "@/models/user";
+import { NextRequest, NextResponse } from "next/server";
+
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 export async function POST(req: NextRequest) {
   try {
     await dbConnect();
@@ -18,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     if (user == null) {
       return new NextResponse(
-        JSON.stringify({ message: '계정이 존재하지 않습니다', result: '' })
+        JSON.stringify({ message: "계정이 존재하지 않습니다", result: "" })
       );
     }
 
@@ -33,21 +35,22 @@ export async function POST(req: NextRequest) {
     // json web token 생성하여 send 해주기
 
     const token = await jwt.sign(payload, process.env.TOKEN_SECRET!, {
-      expiresIn: '1d',
+      expiresIn: "1d",
     });
-    user.token = token;
+    /*   user.token = token; */
     await user.save();
     const body = {
-      message: isMatched ? 'OK' : '아이디 혹은 비밀번호를 확인해주세요.',
-      token: {
+      message: isMatched ? "OK" : "아이디 혹은 비밀번호를 확인해주세요.",
+      /*       token: {
         accessToken: isMatched && token,
-      },
+      }, */
       user,
     };
     const response = NextResponse.json(body);
 
     // Set the token as an HTTP-only cookie
-    response.cookies.set('token', token, {
+    // cookie 값 client 접근 불가능
+    response.cookies.set("token", token, {
       httpOnly: true,
     });
 
