@@ -1,12 +1,12 @@
 /** @format */
 
-import jwt from "jsonwebtoken";
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
 
+const jwt = require('jsonwebtoken');
 export const getDataFromToken = (request: NextRequest) => {
   try {
     // Retrieve the token from the cookies
-    const token = request.cookies.get("token")?.value || "";
+    const token = request.cookies.get('token')?.value || '';
 
     // Verify and decode the token using the secret key
     const decodedToken: any = jwt.verify(token, process.env.TOKEN_SECRET!);

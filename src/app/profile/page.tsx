@@ -24,19 +24,20 @@ const page = () => {
 
   useEffect(() => {
     const getProfile = async () => {
-      const access = localStorage.getItem('token');
-      const userRes = await fetch('http://127.0.0.1:8000/user/get_user_self/', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${access}`,
-        },
-        method: 'GET',
-      }).then((res) => {
+      const userRes = await fetch(
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/profile`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'GET',
+        }
+      ).then((res) => {
         return res.json();
       });
 
       const reviews = await fetch(
-        `http://127.0.0.1:8000/review/post/?user=${user.userId}&count_per_page=3`,
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/profile/review?id=${user.userId}`,
         {
           method: 'GET',
           headers: {
@@ -47,16 +48,16 @@ const page = () => {
         return res.json();
       });
 
-      console.log(reviews);
+      console.log(userRes);
 
-      if (reviews) {
-        reviews.map((review: ReviewType) => {
+      if (reviews.data) {
+        reviews.data.map((review: ReviewType) => {
           setReviews((prev) => [...prev, review]);
         });
       }
       setUserInfo({
-        email: userRes.data.email,
-        nickname: userRes.data.nickname,
+        email: userRes.user.email,
+        nickname: userRes.user.nickname,
       });
     };
 
@@ -97,7 +98,7 @@ const page = () => {
                     className={style['item']}
                     key={idx}
                     onClick={() => {
-                      router.push(`/review/${review.id}`);
+                      router.push(`/review/${review._id}`);
                     }}
                   >
                     <span>{review.title}</span>

@@ -1,22 +1,53 @@
 /** @format */
 
-import dbConnect from "@/utils/database";
-import { getDataFromToken } from "@/utils/getDataFromToken";
-import { NextRequest, NextResponse } from "next/server";
-import User from "@/models/user";
-export async function GET(request: NextRequest) {
+import dbConnect from '@/utils/database';
+import { getDataFromToken } from '@/utils/getDataFromToken';
+import { NextRequest, NextResponse } from 'next/server';
+import User from '@/models/user';
+
+const secret = process.env.TOKEN_SECRET!;
+const jwt = require('jsonwebtoken');
+
+export async function GET(req: NextRequest) {
   try {
     await dbConnect();
-    // Extract user ID from the authentication token
-    const userId = await getDataFromToken(request);
+    const token = req.cookies.get('token')?.value || '';
+    if (token) {
+      const decodedToken: any = jwt.verify(token, secret);
+      const userId = decodedToken.user.id;
+      console.log(decodedToken);
+      const user = await User.findOne({ _id: userId });
+      if (user) {
+        const payload = {
+          user: {
+            nickname: user.nickname,
+            email: user.email,
+          },
+        };
+        const body = {
+          message: 'OK',
+          user,
+        };
 
-    // Find the user in the database based on the user ID
-    const user = await User.findOne({ _id: userId }).select("-password");
-    return NextResponse.json({
-      message: "User found",
-      data: user,
-    });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+        const response = NextResponse.json(body);
+
+        return response;
+      } else {
+        const body = {
+          message: 'Failed',
+        };
+        const response = NextResponse.json(body);
+        return response;
+      }
+    } else {
+      const body = {
+        message: 'Failed',
+        user: {},
+      };
+      const response = NextResponse.json(body);
+      return response;
+    }
+  } catch (error) {
+    throw error;
   }
 }

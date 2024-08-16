@@ -2,7 +2,7 @@
 @import '../../variables';
 
 .container {
-  width: 100%;
+  width: 100vw;
   height: calc(100vh - 60px);
   @include flex-column(center, center);
   gap: 50px;

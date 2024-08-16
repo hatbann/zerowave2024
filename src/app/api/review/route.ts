@@ -10,6 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     await dbConnect();
+    console.log(newPost);
     await newPost.save();
 
     return new NextResponse('post has been created', { status: 200 });

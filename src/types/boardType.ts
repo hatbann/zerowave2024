@@ -1,5 +1,5 @@
 export type ReviewType = {
-  id: number;
+  _id: string;
   title: string;
   content: string;
   author: number;

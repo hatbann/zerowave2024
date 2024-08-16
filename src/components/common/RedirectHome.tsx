@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import style from '../../styles/common/redirectHome.module.scss';
 
-const RedirectHome = () => {
+const isNeedLogin = () => {
   const router = useRouter();
 
   return (
@@ -30,4 +30,15 @@ const RedirectHome = () => {
   );
 };
 
+const RedirectHome = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/');
+  }, []);
+
+  return <></>;
+};
 export default RedirectHome;
+
+export { isNeedLogin };

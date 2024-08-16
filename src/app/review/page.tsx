@@ -15,7 +15,7 @@ const page = () => {
     const fetchReviews = async () => {
       try {
         const res = await fetch(
-          'http://127.0.0.1:8000/review/post/?order_by=-created_at',
+          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review`,
           {
             method: 'GET',
             headers: {
@@ -26,11 +26,11 @@ const page = () => {
         const data = await res.json();
         if (data.length !== 0) {
           const users = data.map((res: ReviewType) => {
-            return res.author;
+            if (res.author !== null) return res.author;
           });
           const ids = String(users);
           const userData = await fetch(
-            `http://127.0.0.1:8000/user/get_nickname/?id__in[]=${ids}`,
+            `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/nickname?ids=${ids}`,
             {
               headers: {
                 'Content-Type': 'application/json',
@@ -38,16 +38,16 @@ const page = () => {
               method: 'GET',
             }
           ).then((res) => res.json());
-          const userArr: { id: number; nickname: string }[] = JSON.parse(
-            userData.data
-          );
+          const userArr: { id: number; nickname: string }[] = userData.data;
           const reviewRes: ReviewType[] = [];
+          console.log(userArr, data);
           data.map((item: ReviewType) => {
             const name = userArr.find(
               (data) => data.id === item.author
             )?.nickname;
+            console.log(data);
             const temp: ReviewType = {
-              id: item.id,
+              _id: item._id,
               title: item.title,
               content: item.content,
               created_at: item.created_at,
@@ -60,6 +60,7 @@ const page = () => {
             };
             reviewRes.push(temp);
           });
+          console.log(reviewRes);
           setReviews(reviewRes);
         } else {
           setReviews([]);
@@ -85,7 +86,7 @@ const page = () => {
             {reviews.map((review, idx) => {
               return (
                 <Review
-                  key={review.id}
+                  key={review._id}
                   item={review}
                   index={idx + 1}
                   isLast={idx === reviews.length - 1}

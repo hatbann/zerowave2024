@@ -17,7 +17,7 @@ const Review = ({
   return (
     <div
       onClick={() => {
-        router.push(`/review/${item.id}`);
+        router.push(`/review/${item._id}`);
       }}
       className={isLast ? `${style['list']} ${style['last']}` : style['list']}
     >

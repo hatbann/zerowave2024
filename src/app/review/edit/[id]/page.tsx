@@ -15,7 +15,7 @@ import { PlaceType } from '@/types/boardType';
 const page = ({ params }: { params: { id: string } }) => {
   const [data, setData] = useState<ReviewDetailType>({
     title: '',
-    author: -1,
+    author: '',
     authorName: '',
     content: '',
     views: 0,
@@ -45,7 +45,7 @@ const page = ({ params }: { params: { id: string } }) => {
     console.log(params.id);
     const getData = async () => {
       const res = await fetch(
-        `http://127.0.0.1:8000/review/post/${params.id}`,
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/${params.id}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -60,38 +60,33 @@ const page = ({ params }: { params: { id: string } }) => {
 
       if (res) {
         const userData = await fetch(
-          `http://127.0.0.1:8000/user/get_nickname/?id=${res.author}`,
+          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/author?id=${res[0].author}`,
           {
             headers: {
               'Content-Type': 'application/json',
             },
             method: 'GET',
           }
-        )
-          .then((res) => res.json())
-          .then((res) => {
-            const parsingData = JSON.parse(res.data);
-            return parsingData[0];
-          });
+        ).then((res) => res.json());
 
         setPlaceInfo({
           placeName: res.location,
           address: res.address,
         });
         const result: ReviewDetailType = {
-          title: res.title,
-          author: res.author,
-          authorName: userData.nickname,
-          content: res.content,
-          views: res.views,
+          title: res[0].title,
+          author: res[0].author,
+          authorName: userData.data.nickname,
+          content: res[0].content,
+          views: res[0].views,
         };
-        setValue('title', res.title);
-        setValue('content', res.content);
+        setValue('title', res[0].title);
+        setValue('content', res[0].content);
         setData(result);
       } else {
         setData({
           title: '',
-          author: -1,
+          author: '',
           authorName: '',
           content: '',
           views: 0,
@@ -120,7 +115,7 @@ const page = ({ params }: { params: { id: string } }) => {
         author: user.userId,
       };
       const response = await fetch(
-        `http://127.0.0.1:8000/review/post/${params.id}/`,
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/${params.id}`,
         {
           headers: {
             'Content-Type': 'application/json',

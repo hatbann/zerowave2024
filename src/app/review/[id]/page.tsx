@@ -10,7 +10,7 @@ import { PlaceType } from '@/types/boardType';
 
 export type ReviewDetailType = {
   title: string;
-  author: number;
+  author: string;
   authorName: string;
   content: string;
   views: number;
@@ -19,7 +19,7 @@ export type ReviewDetailType = {
 const page = ({ params }: { params: { id: string } }) => {
   const [data, setData] = useState<ReviewDetailType>({
     title: '',
-    author: -1,
+    author: '',
     authorName: '',
     content: '',
     views: 0,
@@ -37,7 +37,7 @@ const page = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(
-        `http://127.0.0.1:8000/review/post/${params.id}`,
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/${params.id}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -50,40 +50,38 @@ const page = ({ params }: { params: { id: string } }) => {
           console.log(e);
         });
 
+      console.log(res);
+
       if (res) {
         const userData = await fetch(
-          `http://127.0.0.1:8000/user/get_nickname/?id=${res.author}`,
+          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/author?id=${res[0].author}`,
           {
             headers: {
               'Content-Type': 'application/json',
             },
             method: 'GET',
           }
-        )
-          .then((res) => res.json())
-          .then((res) => {
-            const parsingData = JSON.parse(res.data);
-            return parsingData[0];
-          });
+        ).then((res) => res.json());
 
         setPlace({
-          address: res.address,
-          placeName: res.location,
+          address: res[0].address,
+          placeName: res[0].location,
         });
 
         console.log(res);
         const result: ReviewDetailType = {
-          title: res.title,
-          author: res.author,
-          authorName: userData.nickname,
-          content: res.content,
-          views: res.views,
+          title: res[0].title,
+          author: res[0].author,
+          authorName: userData.data.nickname,
+          content: res[0].content,
+          views: res[0].views,
         };
+        console.log(result);
         setData(result);
       } else {
         setData({
           title: '',
-          author: -1,
+          author: '',
           authorName: '',
           content: '',
           views: 0,
@@ -99,7 +97,7 @@ const page = ({ params }: { params: { id: string } }) => {
   const clickDelete = () => {
     const requestDelete = async () => {
       const res = await fetch(
-        `http://127.0.0.1:8000/review/post/${params.id}`,
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/${params.id}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -108,7 +106,7 @@ const page = ({ params }: { params: { id: string } }) => {
         }
       )
         .then((res) => {
-          if (res.ok) {
+          if (res) {
             setIsOpenModal(false);
             router.replace('/review');
           }
@@ -151,7 +149,7 @@ const page = ({ params }: { params: { id: string } }) => {
                   <span>조회수</span>
                   <span>{data.views}회</span>
                 </div>
-                <div className={style['contents']}>{data.content}d</div>
+                <div className={style['contents']}>{data.content}</div>
               </div>
             </section>
             {user.userId === data.author && (
