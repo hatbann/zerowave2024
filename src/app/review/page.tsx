@@ -28,9 +28,10 @@ const page = () => {
           const users = data.map((res: ReviewType) => {
             if (res.author !== null) return res.author;
           });
-          const ids = String(users);
+          const id = String(users);
+          console.log(id);
           const userData = await fetch(
-            `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/nickname?ids=${ids}`,
+            `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/nickname/${id}`,
             {
               headers: {
                 'Content-Type': 'application/json',

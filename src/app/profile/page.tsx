@@ -37,7 +37,7 @@ const page = () => {
       });
 
       const reviews = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/profile/review?id=${user.userId}`,
+        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/profile/review/${user.userId}`,
         {
           method: 'GET',
           headers: {
