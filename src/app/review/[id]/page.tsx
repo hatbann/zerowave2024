@@ -54,7 +54,7 @@ const page = ({ params }: { params: { id: string } }) => {
 
       if (res) {
         const userData = await fetch(
-          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/author?id=${res[0].author}`,
+          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/author?id=${res.author}`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -64,17 +64,17 @@ const page = ({ params }: { params: { id: string } }) => {
         ).then((res) => res.json());
 
         setPlace({
-          address: res[0].address,
-          placeName: res[0].location,
+          address: res.address,
+          placeName: res.location,
         });
 
         console.log(res);
         const result: ReviewDetailType = {
-          title: res[0].title,
-          author: res[0].author,
+          title: res.title,
+          author: res.author,
           authorName: userData.data.nickname,
-          content: res[0].content,
-          views: res[0].views,
+          content: res.content,
+          views: res.views,
         };
         console.log(result);
         setData(result);

@@ -65,50 +65,54 @@ const page = () => {
   return (
     <div className={style['container']}>
       <h1>회원가입</h1>
-      <form className={style['form-container']}>
-        <div className={style['form-item']}>
-          <label htmlFor="email">이메일</label>
-          <input
-            type="email"
-            id="email"
-            {...r.email}
-            placeholder="이메일 입력"
-          />
+      <div className={style['form-section']}>
+        <form className={style['form-container']}>
+          <div className={style['form-item']}>
+            <label htmlFor="email">이메일</label>
+            <input
+              type="email"
+              id="email"
+              {...r.email}
+              placeholder="이메일 입력"
+            />
+          </div>
+          {errors.email && <p>{errors.email.message}</p>}
+          <div className={style['form-item']}>
+            <label htmlFor="password">비밀번호</label>
+            <input
+              type="password"
+              id="password"
+              {...r.password}
+              placeholder="비밀번호 입력"
+            />
+          </div>
+          {errors.password && <p>{errors.password.message}</p>}
+          <div className={style['form-item']}>
+            <label htmlFor="re_password">비밀번호 확인</label>
+            <input
+              type="password"
+              id="re_password"
+              {...r.re_password}
+              placeholder="비밀번호 다시 입력"
+            />
+          </div>
+          {errors.re_password && <p>{errors.re_password.message}</p>}
+          <div className={style['form-item']}>
+            <label htmlFor="nickname">닉네임</label>
+            <input type="text" id="nickname" {...r.nickname} />
+          </div>
+          {errors.nickname && <p>{errors.nickname.message}</p>}
+        </form>
+        <div className={style['btn-container']}>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={style['submit-btn']}
+          >
+            회원가입
+          </button>
         </div>
-        {errors.email && <p>{errors.email.message}</p>}
-        <div className={style['form-item']}>
-          <label htmlFor="password">비밀번호</label>
-          <input
-            type="password"
-            id="password"
-            {...r.password}
-            placeholder="비밀번호 입력"
-          />
-        </div>
-        {errors.password && <p>{errors.password.message}</p>}
-        <div className={style['form-item']}>
-          <label htmlFor="re_password">비밀번호 확인</label>
-          <input
-            type="password"
-            id="re_password"
-            {...r.re_password}
-            placeholder="비밀번호 다시 입력"
-          />
-        </div>
-        {errors.re_password && <p>{errors.re_password.message}</p>}
-        <div className={style['form-item']}>
-          <label htmlFor="nickname">닉네임</label>
-          <input type="text" id="nickname" {...r.nickname} />
-        </div>
-        {errors.nickname && <p>{errors.nickname.message}</p>}
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className={style['submit-btn']}
-        >
-          회원가입
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

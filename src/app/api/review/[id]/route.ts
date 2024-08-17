@@ -10,10 +10,12 @@ export async function GET(
 ) {
   try {
     await dbConnect();
-    const review = await Review.find({
+    const review = await Review.findOne({
       _id: params.id,
     });
 
+    review.views += 1;
+    await review.save();
     return new NextResponse(JSON.stringify(review), { status: 200 });
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);

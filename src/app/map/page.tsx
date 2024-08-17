@@ -27,6 +27,7 @@ const page = () => {
   const [geocoder, setGeocoder] = useState<any>(null);
   const [placeLists, setPlaceLists] = useState<PlaceListType[]>([]);
   const [selectedId, setSelectedId] = useState(-1);
+  const [category, setCategory] = useState<'restaurant' | 'cafe'>('restaurant');
 
   const onSuccessLoadLoc = (location: {
     coords: { latitude: number; longitude: number };
@@ -57,8 +58,13 @@ const page = () => {
     const ps = new window.kakao.maps.services.Places(map);
     const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
 
+    console.log(category);
     // 카테고리로 은행을 검색합니다
-    ps.categorySearch('FD6', placesSearchCB, { useMapBounds: true });
+    if (category === 'restaurant') {
+      ps.categorySearch('FD6', placesSearchCB, { useMapBounds: true });
+    } else {
+      ps.categorySearch('CE7', placesSearchCB, { useMapBounds: true });
+    }
 
     // 키워드 검색 완료 시 호출되는 콜백함수 입니다
     function placesSearchCB(data: any, status: any, pagination: any) {
@@ -98,6 +104,7 @@ const page = () => {
       });
     }
   };
+
   const handleCenterChanged = (map: any) => {
     setPlaceLists([]);
     const level = map.getLevel();
@@ -120,7 +127,13 @@ const page = () => {
       const tempGeocoder = new window.kakao.maps.services.Geocoder();
       setGeocoder(tempGeocoder);
     }
-  }, [map]);
+  }, [map, category]);
+
+  useEffect(() => {
+    if (map) {
+      handleCenterChanged(map);
+    }
+  }, [category]);
 
   const onErrorLoadLoc = (error: { code: number; message: string }) => {
     const kakaoMapScript = document.createElement('script');
@@ -186,6 +199,24 @@ const page = () => {
       </div>
       <div className={style['map-container']}>
         <div className={style['location-lists']}>
+          <div className={style['btn-container']}>
+            <button
+              onClick={() => {
+                setCategory('restaurant');
+              }}
+              className={category === 'restaurant' ? style['selected'] : ''}
+            >
+              음식점
+            </button>
+            <button
+              onClick={() => {
+                setCategory('cafe');
+              }}
+              className={category === 'cafe' ? style['selected'] : ''}
+            >
+              카페
+            </button>
+          </div>
           {placeLists.map((place) => (
             <PlaceItem
               clickHandler={clickAddress}

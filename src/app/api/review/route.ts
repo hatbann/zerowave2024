@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 export async function GET() {
   try {
     await dbConnect();
-    const lists = await Review.find();
+    const lists = await Review.find().sort({ created_at: -1 });
 
     return new NextResponse(JSON.stringify(lists), { status: 200 });
   } catch (error) {
