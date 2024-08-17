@@ -55,7 +55,7 @@ const page = ({ params }: { params: { id: string } }) => {
 
       if (res) {
         const userData = await fetch(
-          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/author?id=${res.author}`,
+          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/author/${res.author}`,
           {
             headers: {
               'Content-Type': 'application/json',
