@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '@/states/user';
 import { PlaceType } from '@/types/boardType';
 
+export const dynamic = 'force-dynamic';
 export type ReviewDetailType = {
   title: string;
   author: string;

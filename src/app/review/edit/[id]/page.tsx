@@ -11,7 +11,7 @@ import { ReviewDetailType } from '../../[id]/page';
 import { useReviewForm } from '@/form/useReviewForm';
 import { userState } from '@/states/user';
 import { PlaceType } from '@/types/boardType';
-
+export const dynamic = 'force-dynamic';
 const page = ({ params }: { params: { id: string } }) => {
   const [data, setData] = useState<ReviewDetailType>({
     title: '',
