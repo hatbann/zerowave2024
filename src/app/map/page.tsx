@@ -1,8 +1,10 @@
-'use client';
+/** @format */
 
-import React, { useEffect, useState } from 'react';
-import style from '../../styles/pages/map/style.module.scss';
-import PlaceItem from '@/components/pages/map/placeItem';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import style from "../../styles/pages/map/style.module.scss";
+import PlaceItem from "@/components/pages/map/placeItem";
 
 declare global {
   interface Window {
@@ -27,14 +29,14 @@ const page = () => {
   const [geocoder, setGeocoder] = useState<any>(null);
   const [placeLists, setPlaceLists] = useState<PlaceListType[]>([]);
   const [selectedId, setSelectedId] = useState(-1);
-  const [category, setCategory] = useState<'restaurant' | 'cafe'>('restaurant');
+  const [category, setCategory] = useState<"restaurant" | "cafe">("restaurant");
 
   const onSuccessLoadLoc = (location: {
     coords: { latitude: number; longitude: number };
   }) => {
-    const kakaoMapScript = document.createElement('script');
+    const kakaoMapScript = document.createElement("script");
     kakaoMapScript.async = false;
-    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=700d399006256f95732f06b19c046ba5&autoload=false&libraries=services`;
+    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false&libraries=services`;
     document.head.appendChild(kakaoMapScript);
 
     const onLoadKakaoAPI = () => {
@@ -43,11 +45,11 @@ const page = () => {
       });
     };
 
-    kakaoMapScript.addEventListener('load', onLoadKakaoAPI);
+    kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
   };
 
   const tempF = (lat: number, lng: number, level: number) => {
-    const container = document.getElementById('map');
+    const container = document.getElementById("map");
     const options = {
       center: new window.kakao.maps.LatLng(lat, lng),
       level: level,
@@ -60,10 +62,10 @@ const page = () => {
 
     console.log(category);
     // 카테고리로 은행을 검색합니다
-    if (category === 'restaurant') {
-      ps.categorySearch('FD6', placesSearchCB, { useMapBounds: true });
+    if (category === "restaurant") {
+      ps.categorySearch("FD6", placesSearchCB, { useMapBounds: true });
     } else {
-      ps.categorySearch('CE7', placesSearchCB, { useMapBounds: true });
+      ps.categorySearch("CE7", placesSearchCB, { useMapBounds: true });
     }
 
     // 키워드 검색 완료 시 호출되는 콜백함수 입니다
@@ -92,12 +94,12 @@ const page = () => {
       });
 
       // 마커에 클릭이벤트를 등록합니다
-      window.kakao.maps.event.addListener(marker, 'click', function () {
+      window.kakao.maps.event.addListener(marker, "click", function () {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         infowindow.setContent(
           '<div style="padding:5px;font-size:12px;">' +
             place.place_name +
-            '</div>'
+            "</div>"
         );
         setSelectedId(place.id);
         infowindow.open(map, marker);
@@ -117,10 +119,10 @@ const page = () => {
 
   useEffect(() => {
     if (map) {
-      window.kakao.maps.event.addListener(map, 'dragend', () =>
+      window.kakao.maps.event.addListener(map, "dragend", () =>
         handleCenterChanged(map)
       );
-      window.kakao.maps.event.addListener(map, 'zoom_changed', () =>
+      window.kakao.maps.event.addListener(map, "zoom_changed", () =>
         handleCenterChanged(map)
       );
 
@@ -136,14 +138,14 @@ const page = () => {
   }, [category]);
 
   const onErrorLoadLoc = (error: { code: number; message: string }) => {
-    const kakaoMapScript = document.createElement('script');
+    const kakaoMapScript = document.createElement("script");
     kakaoMapScript.async = false;
     kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=700d399006256f95732f06b19c046ba5&autoload=false`;
     document.head.appendChild(kakaoMapScript);
 
     const onLoadKakaoAPI = () => {
       window.kakao.maps.load(() => {
-        const container = document.getElementById('map');
+        const container = document.getElementById("map");
         const options = {
           center: new window.kakao.maps.LatLng(33.450701, 126.570667),
           level: 3,
@@ -152,7 +154,7 @@ const page = () => {
       });
     };
 
-    kakaoMapScript.addEventListener('load', onLoadKakaoAPI);
+    kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
   };
 
   useEffect(() => {
@@ -176,7 +178,7 @@ const page = () => {
 
         var customOverlay = new window.kakao.maps.CustomOverlay({
           position: coords,
-          content: `<div class=${style['focus']}>${placeName}</div>`,
+          content: `<div class=${style["focus"]}>${placeName}</div>`,
         });
 
         // 커스텀 오버레이를 지도에 표시합니다
@@ -189,31 +191,29 @@ const page = () => {
   };
 
   return (
-    <div className={style['container']}>
-      <div className={style['top']}>
-        <div className={style['title']}>
+    <div className={style["container"]}>
+      <div className={style["top"]}>
+        <div className={style["title"]}>
           <h1>Zerowave Map</h1>
           <img src="/images/png/Location.png" alt="location" />
         </div>
         <p>제로웨이스트를 실천하는 공간들을 추가해주세요</p>
       </div>
-      <div className={style['map-container']}>
-        <div className={style['location-lists']}>
-          <div className={style['btn-container']}>
+      <div className={style["map-container"]}>
+        <div className={style["location-lists"]}>
+          <div className={style["btn-container"]}>
             <button
               onClick={() => {
-                setCategory('restaurant');
+                setCategory("restaurant");
               }}
-              className={category === 'restaurant' ? style['selected'] : ''}
-            >
+              className={category === "restaurant" ? style["selected"] : ""}>
               음식점
             </button>
             <button
               onClick={() => {
-                setCategory('cafe');
+                setCategory("cafe");
               }}
-              className={category === 'cafe' ? style['selected'] : ''}
-            >
+              className={category === "cafe" ? style["selected"] : ""}>
               카페
             </button>
           </div>
@@ -227,9 +227,8 @@ const page = () => {
         </div>
         <div
           id="map"
-          style={{ width: '100%', height: '100%' }}
-          className={style['map']}
-        ></div>
+          style={{ width: "100%", height: "100%" }}
+          className={style["map"]}></div>
       </div>
     </div>
   );
