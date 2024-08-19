@@ -24,6 +24,8 @@ export type PlaceListType = {
   id: number;
 };
 
+const KAKAO_MAP_KEY = process.env.KAKAO_MAP_KEY!;
+
 const page = () => {
   const [map, setMap] = useState<any>(null);
   const [geocoder, setGeocoder] = useState<any>(null);
@@ -36,7 +38,7 @@ const page = () => {
   }) => {
     const kakaoMapScript = document.createElement("script");
     kakaoMapScript.async = false;
-    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false&libraries=services`;
+    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAP_KEY}&autoload=false&libraries=services`;
     document.head.appendChild(kakaoMapScript);
 
     const onLoadKakaoAPI = () => {
