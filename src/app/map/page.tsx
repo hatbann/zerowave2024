@@ -24,7 +24,7 @@ export type PlaceListType = {
   id: number;
 };
 
-const KAKAO_MAP_KEY = process.env.KAKAO_MAP_KEY!;
+const KAKAO_MAP_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY!;
 
 const page = () => {
   const [map, setMap] = useState<any>(null);
