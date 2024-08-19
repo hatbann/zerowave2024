@@ -24,7 +24,7 @@ const handler = NextAuth({
             ? "/api"
             : process.env.NEXT_PUBLIC_API_URL!;
 
-        const response = await fetch(`${API_URL}/api/user/signin`, {
+        const response = await fetch(`${API_URL}/user/signin`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

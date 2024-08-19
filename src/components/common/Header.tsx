@@ -23,7 +23,7 @@ const Header = () => {
         ? "/api"
         : process.env.NEXT_PUBLIC_API_URL!;
 
-    const res = await fetch(`${process.env.API_URL}/api/user/logout`, {
+    const res = await fetch(`${API_URL}/user/logout`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

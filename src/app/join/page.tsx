@@ -41,7 +41,7 @@ const page = () => {
         process.env.NODE_ENV === "production"
           ? "/api"
           : process.env.NEXT_PUBLIC_API_URL!;
-      const res = await fetch(`${API_URL}/api/user/signup`, {
+      const res = await fetch(`${API_URL}/user/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

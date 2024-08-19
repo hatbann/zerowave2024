@@ -50,7 +50,7 @@ const page = () => {
           process.env.NODE_ENV === "production"
             ? "/api"
             : process.env.NEXT_PUBLIC_API_URL!;
-        const response = await fetch(`${API_URL}/api/review`, {
+        const response = await fetch(`${API_URL}/review`, {
           headers: {
             "Content-Type": "application/json",
           },

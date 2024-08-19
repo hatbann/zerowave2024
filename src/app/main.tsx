@@ -37,7 +37,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const getUserInfo = async () => {
       const res: { message: any; token: any; user: any } = await fetch(
-        `${API_URL}/api/token`,
+        `${API_URL}/token`,
         {
           method: "GET",
           headers: {

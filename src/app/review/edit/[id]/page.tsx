@@ -51,7 +51,7 @@ const page = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     console.log(params.id);
     const getData = async () => {
-      const res = await fetch(`${API_URL}/api/review/${params.id}`, {
+      const res = await fetch(`${API_URL}/review/${params.id}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -63,15 +63,12 @@ const page = ({ params }: { params: { id: string } }) => {
         });
 
       if (res) {
-        const userData = await fetch(
-          `${API_URL}/api/review/author/${res.author}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            method: "GET",
-          }
-        ).then((res) => res.json());
+        const userData = await fetch(`${API_URL}/review/author/${res.author}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }).then((res) => res.json());
 
         setPlaceInfo({
           placeName: res.location,
@@ -118,7 +115,7 @@ const page = ({ params }: { params: { id: string } }) => {
         content: getValues("content"),
         author: user.userId,
       };
-      const response = await fetch(`${API_URL}/api/review/${params.id}`, {
+      const response = await fetch(`${API_URL}/review/${params.id}`, {
         headers: {
           "Content-Type": "application/json",
         },

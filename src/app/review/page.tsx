@@ -19,7 +19,7 @@ const page = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/review`, {
+        const res = await fetch(`${API_URL}/review`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const page = () => {
           });
           const id = String(users);
           console.log(id);
-          const userData = await fetch(`${API_URL}/api/user/nickname/${id}`, {
+          const userData = await fetch(`${API_URL}/user/nickname/${id}`, {
             headers: {
               "Content-Type": "application/json",
             },

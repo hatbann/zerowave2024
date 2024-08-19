@@ -37,7 +37,7 @@ const page = () => {
           : process.env.NEXT_PUBLIC_API_URL!;
 
       const res: { user: any; token: any } = await fetch(
-        `${API_URL}/api/user/signin`,
+        `${API_URL}/user/signin`,
         {
           method: "POST",
           headers: {

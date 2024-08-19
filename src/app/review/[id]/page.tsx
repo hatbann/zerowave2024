@@ -44,7 +44,7 @@ const page = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(`${API_URL}/api/review/${params.id}`, {
+      const res = await fetch(`${API_URL}/review/${params.id}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -58,15 +58,12 @@ const page = ({ params }: { params: { id: string } }) => {
       console.log(res);
 
       if (res) {
-        const userData = await fetch(
-          `${API_URL}/api/review/author/${res.author}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            method: "GET",
-          }
-        ).then((res) => res.json());
+        const userData = await fetch(`${API_URL}/review/author/${res.author}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }).then((res) => res.json());
 
         setPlace({
           address: res.address,
@@ -101,7 +98,7 @@ const page = ({ params }: { params: { id: string } }) => {
 
   const clickDelete = () => {
     const requestDelete = async () => {
-      const res = await fetch(`${API_URL}/api/review/${params.id}`, {
+      const res = await fetch(`${API_URL}/review/${params.id}`, {
         headers: {
           "Content-Type": "application/json",
         },
