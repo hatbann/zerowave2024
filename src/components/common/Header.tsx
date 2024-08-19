@@ -20,10 +20,10 @@ const Header = () => {
   const logout = async () => {
     const API_URL =
       process.env.NODE_ENV === "production"
-        ? "/api"
+        ? "/"
         : process.env.NEXT_PUBLIC_API_URL!;
 
-    const res = await fetch(`${process.env.API_URL}/api/user/logout`, {
+    const res = await fetch(`${API_URL}/api/user/logout`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
