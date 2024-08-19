@@ -31,7 +31,7 @@ const page = () => {
 
   useEffect(() => {
     const getProfile = async () => {
-      const userRes = await fetch(`${process.env.API_URL}/user/profile`, {
+      const userRes = await fetch(`${API_URL}/user/profile`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -41,7 +41,7 @@ const page = () => {
       });
 
       const reviews = await fetch(
-        `${process.env.API_URL}/user/profile/review/${user.userId}`,
+        `${API_URL}/user/profile/review/${user.userId}`,
         {
           method: "GET",
           headers: {
