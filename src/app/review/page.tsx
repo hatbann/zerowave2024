@@ -1,9 +1,11 @@
-'use client';
-import Review from '@/components/pages/review/Review';
-import { ReviewType } from '@/types/boardType';
-import React, { useEffect, useState } from 'react';
-import style from '../../styles/pages/review/style.module.scss';
-import { useRouter } from 'next/navigation';
+/** @format */
+
+"use client";
+import Review from "@/components/pages/review/Review";
+import { ReviewType } from "@/types/boardType";
+import React, { useEffect, useState } from "react";
+import style from "../../styles/pages/review/style.module.scss";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,11 +17,11 @@ const page = () => {
     const fetchReviews = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/review`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           }
         );
@@ -31,12 +33,12 @@ const page = () => {
           const id = String(users);
           console.log(id);
           const userData = await fetch(
-            `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/nickname/${id}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/user/nickname/${id}`,
             {
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
-              method: 'GET',
+              method: "GET",
             }
           ).then((res) => res.json());
           const userArr: { id: number; nickname: string }[] = userData.data;
@@ -54,7 +56,7 @@ const page = () => {
               created_at: item.created_at,
               updated_at: item.updated_at,
               author: item.author,
-              authorName: name ?? '',
+              authorName: name ?? "",
               views: item.views,
               location: item.location,
               address: item.address,
@@ -77,13 +79,13 @@ const page = () => {
   }, []);
 
   return (
-    <div className={style['container']}>
-      <h1 className={style['title']}>리뷰</h1>
-      <section className={style['review-wrapper']}>
+    <div className={style["container"]}>
+      <h1 className={style["title"]}>리뷰</h1>
+      <section className={style["review-wrapper"]}>
         {isLoading ? (
-          <div className={style['loading-container']}>loading...</div>
+          <div className={style["loading-container"]}>loading...</div>
         ) : reviews.length !== 0 ? (
-          <div className={style['review-list-container']}>
+          <div className={style["review-list-container"]}>
             {reviews.map((review, idx) => {
               return (
                 <Review
@@ -96,7 +98,7 @@ const page = () => {
             })}
           </div>
         ) : (
-          <div className={style['empty']}>
+          <div className={style["empty"]}>
             등록된 리뷰가 없습니다.
           </div>
         )}

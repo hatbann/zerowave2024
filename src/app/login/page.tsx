@@ -1,13 +1,15 @@
-'use client';
+/** @format */
 
-import { useSinginForm } from '@/form/useLoginForm';
-import React from 'react';
-import style from '../../styles/pages/login/style.module.scss';
-import { useRecoilState } from 'recoil';
-import { userState } from '@/states/user';
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { useSession } from '@supabase/auth-helpers-react';
+"use client";
+
+import { useSinginForm } from "@/form/useLoginForm";
+import React from "react";
+import style from "../../styles/pages/login/style.module.scss";
+import { useRecoilState } from "recoil";
+import { userState } from "@/states/user";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useSession } from "@supabase/auth-helpers-react";
 
 const page = () => {
   const {
@@ -25,16 +27,16 @@ const page = () => {
   const handleSubmit = async () => {
     try {
       const bodyData = {
-        email: getValues('email'),
-        password: getValues('password'),
+        email: getValues("email"),
+        password: getValues("password"),
       };
 
       const res: { user: any; token: any } = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/signin`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/user/signin`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(bodyData),
         }
@@ -48,7 +50,7 @@ const page = () => {
         username: res.user.nickname,
         userId: res.user._id,
       });
-      router.push('/');
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -72,11 +74,11 @@ const page = () => {
   }; */
 
   return (
-    <div className={style['container']}>
+    <div className={style["container"]}>
       <h1>로그인</h1>
-      <div className={style['form-section']}>
-        <form className={style['form-container']}>
-          <div className={style['form-item']}>
+      <div className={style["form-section"]}>
+        <form className={style["form-container"]}>
+          <div className={style["form-item"]}>
             <label htmlFor="email">이메일</label>
             <input
               type="email"
@@ -85,10 +87,10 @@ const page = () => {
               placeholder="이메일 입력"
             />
             {errors.email && (
-              <p className={style['error']}>{errors.email.message}</p>
+              <p className={style["error"]}>{errors.email.message}</p>
             )}
           </div>
-          <div className={style['form-item']}>
+          <div className={style["form-item"]}>
             <label htmlFor="password">비밀번호</label>
             <input
               type="password"
@@ -97,22 +99,21 @@ const page = () => {
               placeholder="비밀번호 입력"
             />
             {errors.password && (
-              <p className={style['error']}>{errors.password.message}</p>
+              <p className={style["error"]}>{errors.password.message}</p>
             )}
           </div>
         </form>
-        <div className={style['btn-container']}>
+        <div className={style["btn-container"]}>
           <button type="button" onClick={handleSubmit}>
             로그인
           </button>
         </div>
       </div>
       <button
-        className={style['join-btn']}
+        className={style["join-btn"]}
         onClick={() => {
-          router.push('/join');
-        }}
-      >
+          router.push("/join");
+        }}>
         회원가입
       </button>
     </div>

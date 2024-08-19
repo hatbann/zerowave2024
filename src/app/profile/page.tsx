@@ -1,12 +1,14 @@
-'use client';
+/** @format */
 
-import { userState } from '@/states/user';
-import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import style from '../../styles/pages/profile/style.module.scss';
-import { ReviewType } from '@/types/boardType';
-import moment from 'moment';
-import { useRouter } from 'next/navigation';
+"use client";
+
+import { userState } from "@/states/user";
+import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import style from "../../styles/pages/profile/style.module.scss";
+import { ReviewType } from "@/types/boardType";
+import moment from "moment";
+import { useRouter } from "next/navigation";
 
 type userInfo = {
   email: string;
@@ -16,8 +18,8 @@ type userInfo = {
 const page = () => {
   const user = useRecoilValue(userState);
   const [userInfo, setUserInfo] = useState<userInfo>({
-    email: '',
-    nickname: '',
+    email: "",
+    nickname: "",
   });
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const router = useRouter();
@@ -25,23 +27,23 @@ const page = () => {
   useEffect(() => {
     const getProfile = async () => {
       const userRes = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/profile`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/user/profile`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          method: 'GET',
+          method: "GET",
         }
       ).then((res) => {
         return res.json();
       });
 
       const reviews = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/profile/review/${user.userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/user/profile/review/${user.userId}`,
         {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       ).then((res) => {
@@ -65,45 +67,44 @@ const page = () => {
   }, []);
 
   return (
-    <div className={style['container']}>
-      <div className={style['profile']}>
-        <div className={style['title']}>
+    <div className={style["container"]}>
+      <div className={style["profile"]}>
+        <div className={style["title"]}>
           <h4>프로필</h4>
         </div>
-        <div className={style['info']}>
+        <div className={style["info"]}>
           <div>
-            <span className={style['label']}>닉네임</span> | {userInfo.nickname}
+            <span className={style["label"]}>닉네임</span> | {userInfo.nickname}
           </div>
           <div>
-            <span className={style['label']}>이메일</span> |{' '}
+            <span className={style["label"]}>이메일</span> |{" "}
             {userInfo.email}
           </div>
         </div>
       </div>
-      <div className={style['my-review']}>
-        <div className={style['title']}>
+      <div className={style["my-review"]}>
+        <div className={style["title"]}>
           <h4>최근 리뷰</h4>
         </div>
         {reviews.length !== 0 ? (
-          <div className={style['table']}>
-            <div className={style['head']}>
+          <div className={style["table"]}>
+            <div className={style["head"]}>
               <span>제목</span>
               <span>작성일자</span>
               <span>조회수</span>
             </div>
-            <div className={style['body']}>
+            <div className={style["body"]}>
               {reviews.map((review, idx) => {
                 return (
                   <div
-                    className={style['item']}
+                    className={style["item"]}
                     key={idx}
                     onClick={() => {
                       router.push(`/review/${review._id}`);
-                    }}
-                  >
+                    }}>
                     <span>{review.title}</span>
                     <span>
-                      {moment(review.created_at).format('YYYY-MM-DD')}
+                      {moment(review.created_at).format("YYYY-MM-DD")}
                     </span>
                     <span>{review.views}회</span>
                   </div>

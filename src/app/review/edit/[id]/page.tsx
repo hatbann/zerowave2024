@@ -1,23 +1,25 @@
-'use client';
+/** @format */
 
-import React from 'react';
-import { useEffect, useState } from 'react';
+"use client";
 
-import { useRouter } from 'next/navigation';
+import React from "react";
+import { useEffect, useState } from "react";
 
-import { useRecoilValue } from 'recoil';
-import style from '../../../../styles/pages/review/reviewEdit.module.scss';
-import { ReviewDetailType } from '../../[id]/page';
-import { useReviewForm } from '@/form/useReviewForm';
-import { userState } from '@/states/user';
-import { PlaceType } from '@/types/boardType';
-export const dynamic = 'force-dynamic';
+import { useRouter } from "next/navigation";
+
+import { useRecoilValue } from "recoil";
+import style from "../../../../styles/pages/review/reviewEdit.module.scss";
+import { ReviewDetailType } from "../../[id]/page";
+import { useReviewForm } from "@/form/useReviewForm";
+import { userState } from "@/states/user";
+import { PlaceType } from "@/types/boardType";
+export const dynamic = "force-dynamic";
 const page = ({ params }: { params: { id: string } }) => {
   const [data, setData] = useState<ReviewDetailType>({
-    title: '',
-    author: '',
-    authorName: '',
-    content: '',
+    title: "",
+    author: "",
+    authorName: "",
+    content: "",
     views: 0,
   });
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -45,12 +47,12 @@ const page = ({ params }: { params: { id: string } }) => {
     console.log(params.id);
     const getData = async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/${params.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/review/${params.id}`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          method: 'GET',
+          method: "GET",
         }
       )
         .then((res) => res.json())
@@ -60,12 +62,12 @@ const page = ({ params }: { params: { id: string } }) => {
 
       if (res) {
         const userData = await fetch(
-          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/author/${res.author}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/review/author/${res.author}`,
           {
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
-            method: 'GET',
+            method: "GET",
           }
         ).then((res) => res.json());
 
@@ -80,15 +82,15 @@ const page = ({ params }: { params: { id: string } }) => {
           content: res.content,
           views: res.views,
         };
-        setValue('title', res.title);
-        setValue('content', res.content);
+        setValue("title", res.title);
+        setValue("content", res.content);
         setData(result);
       } else {
         setData({
-          title: '',
-          author: '',
-          authorName: '',
-          content: '',
+          title: "",
+          author: "",
+          authorName: "",
+          content: "",
           views: 0,
         });
       }
@@ -100,27 +102,27 @@ const page = ({ params }: { params: { id: string } }) => {
   }, []);
 
   const onSubmit = async () => {
-    if (getValues('title').length < 1) {
-      setError('title', {
-        message: '필수 입력 항목입니다',
+    if (getValues("title").length < 1) {
+      setError("title", {
+        message: "필수 입력 항목입니다",
       });
-    } else if (getValues('content').length < 1) {
-      setError('content', {
-        message: '필수 입력 항목입니다',
+    } else if (getValues("content").length < 1) {
+      setError("content", {
+        message: "필수 입력 항목입니다",
       });
     } else {
       const bodyData = {
-        title: getValues('title'),
-        content: getValues('content'),
+        title: getValues("title"),
+        content: getValues("content"),
         author: user.userId,
       };
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/${params.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/review/${params.id}`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          method: 'PUT',
+          method: "PUT",
           body: JSON.stringify(bodyData),
         }
       )
@@ -136,50 +138,48 @@ const page = ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <div className={style['container']}>
+      <div className={style["container"]}>
         {isLoadingData ? (
-          <div className={style['loading']}>loading...</div>
+          <div className={style["loading"]}>loading...</div>
         ) : (
-          <div className={style['content-wrapper']}>
-            <section className={style['content']}>
-              <div className={`${style['item']} ${style['title']}`}>
-                <label className={style['item-label']} htmlFor="title">
+          <div className={style["content-wrapper"]}>
+            <section className={style["content"]}>
+              <div className={`${style["item"]} ${style["title"]}`}>
+                <label className={style["item-label"]} htmlFor="title">
                   제목
                 </label>
                 <input
-                  className={style['item-input']}
+                  className={style["item-input"]}
                   id="title"
                   /*       placeholder={data.title} */
                   {...r.title}
                 />
               </div>
-              <div className={`${style['item']} ${style['body']}`}>
-                <label className={style['item-label']} htmlFor="body">
+              <div className={`${style["item"]} ${style["body"]}`}>
+                <label className={style["item-label"]} htmlFor="body">
                   내용
                 </label>
                 <textarea
-                  className={style['item-input']}
+                  className={style["item-input"]}
                   /*     placeholder={data.content} */
                   id="body"
                   {...r.content}
                 />
               </div>
             </section>
-            <div className={style['btn-container']}>
+            <div className={style["btn-container"]}>
               <button
-                className={style['cancel']}
+                className={style["cancel"]}
                 onClick={() => {
                   router.back();
-                }}
-              >
+                }}>
                 취소
               </button>
               <button
-                className={style['submit']}
+                className={style["submit"]}
                 onClick={() => {
                   onSubmit();
-                }}
-              >
+                }}>
                 완료
               </button>
             </div>
