@@ -26,12 +26,12 @@ const page = () => {
 
   const API_URL =
     process.env.NODE_ENV === "production"
-      ? "/"
+      ? "/api"
       : process.env.NEXT_PUBLIC_API_URL!;
 
   useEffect(() => {
     const getProfile = async () => {
-      const userRes = await fetch(`${API_URL}/api/user/profile`, {
+      const userRes = await fetch(`${process.env.API_URL}/api/user/profile`, {
         headers: {
           "Content-Type": "application/json",
         },
