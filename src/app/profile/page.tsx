@@ -24,22 +24,24 @@ const page = () => {
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const router = useRouter();
 
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "/api"
+      : process.env.NEXT_PUBLIC_API_URL!;
+
   useEffect(() => {
     const getProfile = async () => {
-      const userRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/user/profile`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "GET",
-        }
-      ).then((res) => {
+      const userRes = await fetch(`${process.env.API_URL}/api/user/profile`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      }).then((res) => {
         return res.json();
       });
 
       const reviews = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/user/profile/review/${user.userId}`,
+        `${process.env.API_URL}/api/user/profile/review/${user.userId}`,
         {
           method: "GET",
           headers: {

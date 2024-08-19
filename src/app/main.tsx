@@ -29,10 +29,15 @@ const Main = ({ children }: { children: React.ReactNode }) => {
     pathname.includes(p)
   );
 
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "/api"
+      : process.env.NEXT_PUBLIC_API_URL!;
+
   useEffect(() => {
     const getUserInfo = async () => {
       const res: { message: any; token: any; user: any } = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/token`,
+        `${API_URL}/api/token`,
         {
           method: "GET",
           headers: {

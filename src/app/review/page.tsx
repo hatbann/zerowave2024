@@ -12,19 +12,19 @@ const page = () => {
   const [reviews, setReviews] = useState<ReviewType[]>([]);
 
   const router = useRouter();
-
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "/api"
+      : process.env.NEXT_PUBLIC_API_URL!;
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/review`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await fetch(`${API_URL}/api/review`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await res.json();
         if (data.length !== 0) {
           const users = data.map((res: ReviewType) => {
@@ -32,15 +32,12 @@ const page = () => {
           });
           const id = String(users);
           console.log(id);
-          const userData = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/user/nickname/${id}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-              method: "GET",
-            }
-          ).then((res) => res.json());
+          const userData = await fetch(`${API_URL}/api/user/nickname/${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "GET",
+          }).then((res) => res.json());
           const userArr: { id: number; nickname: string }[] = userData.data;
           const reviewRes: ReviewType[] = [];
           console.log(userArr, data);

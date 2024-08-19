@@ -31,8 +31,13 @@ const page = () => {
         password: getValues("password"),
       };
 
+      const API_URL =
+        process.env.NODE_ENV === "production"
+          ? "/api"
+          : process.env.NEXT_PUBLIC_API_URL!;
+
       const res: { user: any; token: any } = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/user/signin`,
+        `${API_URL}/api/user/signin`,
         {
           method: "POST",
           headers: {

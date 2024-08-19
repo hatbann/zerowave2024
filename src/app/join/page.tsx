@@ -36,16 +36,18 @@ const page = () => {
         email: getValues("email"),
         password: getValues("password"),
       };
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/user/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(bodyData),
-        }
-      ).then((res) => {
+
+      const API_URL =
+        process.env.NODE_ENV === "production"
+          ? "/api"
+          : process.env.NEXT_PUBLIC_API_URL!;
+      const res = await fetch(`${API_URL}/api/user/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bodyData),
+      }).then((res) => {
         return res.json();
       });
 

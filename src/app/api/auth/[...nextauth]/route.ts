@@ -19,16 +19,18 @@ const handler = NextAuth({
           email: credentials?.email,
           password: credentials?.password,
         };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/user/signin`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(params),
-          }
-        );
+        const API_URL =
+          process.env.NODE_ENV === "production"
+            ? "/api"
+            : process.env.NEXT_PUBLIC_API_URL!;
+
+        const response = await fetch(`${API_URL}/api/user/signin`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        });
 
         const res = await response.json();
         /*    console.log(res); */

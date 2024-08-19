@@ -18,15 +18,17 @@ const Header = () => {
   const resetUser = useResetRecoilState(userState);
 
   const logout = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/user/logout`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const API_URL =
+      process.env.NODE_ENV === "production"
+        ? "/api"
+        : process.env.NEXT_PUBLIC_API_URL!;
+
+    const res = await fetch(`${process.env.API_URL}/api/user/logout`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     resetUser();
     setIsOpenPopup(false);

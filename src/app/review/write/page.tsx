@@ -46,16 +46,17 @@ const page = () => {
           address: getValues("address"),
           views: 0,
         };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/review`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify(bodyData),
-          }
-        )
+        const API_URL =
+          process.env.NODE_ENV === "production"
+            ? "/api"
+            : process.env.NEXT_PUBLIC_API_URL!;
+        const response = await fetch(`${API_URL}/api/review`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(bodyData),
+        })
           .then((res) => {
             res.json();
           })

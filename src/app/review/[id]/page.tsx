@@ -37,17 +37,19 @@ const page = ({ params }: { params: { id: string } }) => {
     placeName: undefined,
   });
 
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "/api"
+      : process.env.NEXT_PUBLIC_API_URL!;
+
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/review/${params.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "GET",
-        }
-      )
+      const res = await fetch(`${API_URL}/api/review/${params.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      })
         .then((res) => res.json())
         .catch((e) => {
           console.log(e);
@@ -57,7 +59,7 @@ const page = ({ params }: { params: { id: string } }) => {
 
       if (res) {
         const userData = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/review/author/${res.author}`,
+          `${API_URL}/api/review/author/${res.author}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -99,15 +101,12 @@ const page = ({ params }: { params: { id: string } }) => {
 
   const clickDelete = () => {
     const requestDelete = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/review/${params.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "DELETE",
-        }
-      )
+      const res = await fetch(`${API_URL}/api/review/${params.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "DELETE",
+      })
         .then((res) => {
           if (res) {
             setIsOpenModal(false);
