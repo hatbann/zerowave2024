@@ -1,24 +1,24 @@
 /** @format */
 
-'use client';
+"use client";
 
-import RedirectHome, { isNeedLogin } from '@/components/common/RedirectHome';
-import { useLoginState } from '@/hooks/useLoginState';
-import { isLoginLoading, userState } from '@/states/user';
-import { usePathname } from 'next/navigation';
-import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import style from '../styles/common/main.module.scss';
-import { selectedPlaceState } from '@/states/place';
+import RedirectHome, { isNeedLogin } from "@/components/common/RedirectHome";
+import { useLoginState } from "@/hooks/useLoginState";
+import { isLoginLoading, userState } from "@/states/user";
+import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import style from "../styles/common/main.module.scss";
+import { selectedPlaceState } from "@/states/place";
 
 const Main = ({ children }: { children: React.ReactNode }) => {
-  const pagesNeedSignedIn: string[] = ['/profile', '/review', '/review/write'];
-  const pagesNeedSignedOut: string[] = ['/login', '/join'];
+  const pagesNeedSignedIn: string[] = ["/profile", "/review", "/review/write"];
+  const pagesNeedSignedOut: string[] = ["/login", "/join"];
 
   const [user, setUser] = useRecoilState(userState);
   //const isLoading = useRecoilValue(isLoginLoading);
   const loading = useLoginState();
-  const isLogin = user.userId !== '';
+  const isLogin = user.userId !== "";
   const pathname = usePathname();
   const setSelectedPlace = useSetRecoilState(selectedPlaceState);
 
@@ -29,14 +29,19 @@ const Main = ({ children }: { children: React.ReactNode }) => {
     pathname.includes(p)
   );
 
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "/api"
+      : process.env.NEXT_PUBLIC_API_URL!;
+
   useEffect(() => {
     const getUserInfo = async () => {
       const res: { message: any; token: any; user: any } = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/token`,
+        `${API_URL}/token`,
         {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       )
@@ -47,7 +52,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
           console.log(e);
         });
 
-      if (res.message === 'OK') {
+      if (res.message === "OK") {
         setUser({
           username: res.user.nickname,
           userId: String(res.user._id),
@@ -56,8 +61,8 @@ const Main = ({ children }: { children: React.ReactNode }) => {
     };
 
     getUserInfo();
-    const address = localStorage.getItem('address');
-    const place = localStorage.getItem('placeName');
+    const address = localStorage.getItem("address");
+    const place = localStorage.getItem("placeName");
     if (address && place) {
       setSelectedPlace({
         address,
@@ -67,7 +72,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   if (loading) {
-    return <div className={style['loading']}>loading...</div>;
+    return <div className={style["loading"]}>loading...</div>;
   } else {
     if (isLogin) {
       if (isPageOnlyInLoggedIn || !isPageOnlyInLoggedOut) {

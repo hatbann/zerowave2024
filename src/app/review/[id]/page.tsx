@@ -1,14 +1,16 @@
-'use client';
+/** @format */
 
-import Modal from '@/components/common/Modal';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-import style from '../../../styles/pages/review/reviewDetail.module.scss';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@/states/user';
-import { PlaceType } from '@/types/boardType';
+"use client";
 
-export const dynamic = 'force-dynamic';
+import Modal from "@/components/common/Modal";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import style from "../../../styles/pages/review/reviewDetail.module.scss";
+import { useRecoilValue } from "recoil";
+import { userState } from "@/states/user";
+import { PlaceType } from "@/types/boardType";
+
+export const dynamic = "force-dynamic";
 export type ReviewDetailType = {
   title: string;
   author: string;
@@ -19,10 +21,10 @@ export type ReviewDetailType = {
 
 const page = ({ params }: { params: { id: string } }) => {
   const [data, setData] = useState<ReviewDetailType>({
-    title: '',
-    author: '',
-    authorName: '',
-    content: '',
+    title: "",
+    author: "",
+    authorName: "",
+    content: "",
     views: 0,
   });
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -35,17 +37,19 @@ const page = ({ params }: { params: { id: string } }) => {
     placeName: undefined,
   });
 
+  const API_URL =
+    process.env.NODE_ENV === "production"
+      ? "/api"
+      : process.env.NEXT_PUBLIC_API_URL!;
+
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/${params.id}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'GET',
-        }
-      )
+      const res = await fetch(`${API_URL}/review/${params.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      })
         .then((res) => res.json())
         .catch((e) => {
           console.log(e);
@@ -54,15 +58,12 @@ const page = ({ params }: { params: { id: string } }) => {
       console.log(res);
 
       if (res) {
-        const userData = await fetch(
-          `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/author/${res.author}`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'GET',
-          }
-        ).then((res) => res.json());
+        const userData = await fetch(`${API_URL}/review/author/${res.author}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }).then((res) => res.json());
 
         setPlace({
           address: res.address,
@@ -81,10 +82,10 @@ const page = ({ params }: { params: { id: string } }) => {
         setData(result);
       } else {
         setData({
-          title: '',
-          author: '',
-          authorName: '',
-          content: '',
+          title: "",
+          author: "",
+          authorName: "",
+          content: "",
           views: 0,
         });
       }
@@ -97,19 +98,16 @@ const page = ({ params }: { params: { id: string } }) => {
 
   const clickDelete = () => {
     const requestDelete = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_DEV_URL}/api/review/${params.id}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'DELETE',
-        }
-      )
+      const res = await fetch(`${API_URL}/review/${params.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "DELETE",
+      })
         .then((res) => {
           if (res) {
             setIsOpenModal(false);
-            router.replace('/review');
+            router.replace("/review");
           }
         })
         .catch((e) => {
@@ -122,63 +120,60 @@ const page = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div className={style['container']}>
+    <div className={style["container"]}>
       {isLoadingData ? (
-        <div className={style['loading']}>loading...</div>
+        <div className={style["loading"]}>loading...</div>
       ) : (
         <>
-          <div className={style['location']}>
+          <div className={style["location"]}>
             <h3>{place.placeName}</h3>
-            {place.address !== '' && <span>({place.address})</span>}
+            {place.address !== "" && <span>({place.address})</span>}
           </div>
-          <div className={style['content-wrapper']}>
-            <section className={style['content']}>
-              <div className={style['content-header']}>
-                <div className={style['header-item']}>
-                  <p className={style['item-label']}>제목</p>
-                  <div className={style['line']}></div>
-                  <p className={style['item-value']}>{data.title}</p>
+          <div className={style["content-wrapper"]}>
+            <section className={style["content"]}>
+              <div className={style["content-header"]}>
+                <div className={style["header-item"]}>
+                  <p className={style["item-label"]}>제목</p>
+                  <div className={style["line"]}></div>
+                  <p className={style["item-value"]}>{data.title}</p>
                 </div>
-                <div className={style['header-item']}>
-                  <p className={style['item-label']}>글쓴이</p>
-                  <p className={style['line']}></p>
-                  <p className={style['item-value']}>{data.authorName}</p>
+                <div className={style["header-item"]}>
+                  <p className={style["item-label"]}>글쓴이</p>
+                  <p className={style["line"]}></p>
+                  <p className={style["item-value"]}>{data.authorName}</p>
                 </div>
               </div>
-              <div className={style['content-body']}>
-                <div className={style['views']}>
+              <div className={style["content-body"]}>
+                <div className={style["views"]}>
                   <span>조회수</span>
                   <span>{data.views}회</span>
                 </div>
-                <div className={style['contents']}>{data.content}</div>
+                <div className={style["contents"]}>{data.content}</div>
               </div>
             </section>
             {user.userId === data.author && (
-              <div className={style['btn-container']}>
+              <div className={style["btn-container"]}>
                 <button
-                  className={style['edit-btn']}
+                  className={style["edit-btn"]}
                   onClick={() => {
                     router.push(`edit/${params.id}`);
-                  }}
-                >
+                  }}>
                   수정
                 </button>
                 <button
-                  className={style['delete-btn']}
+                  className={style["delete-btn"]}
                   onClick={() => {
                     setIsOpenModal(true);
-                  }}
-                >
+                  }}>
                   삭제
                 </button>
               </div>
             )}
             <div
-              className={style['go-back']}
+              className={style["go-back"]}
               onClick={() => {
                 router.back();
-              }}
-            >
+              }}>
               목록
             </div>
           </div>
