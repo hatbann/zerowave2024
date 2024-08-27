@@ -95,6 +95,10 @@ export default function RootLayout({
             __html: JSON.stringify(jsonLdData, null, 2),
           }}
         />
+        <meta
+          name="google-site-verification"
+          content="UGkMOJplAyKAPziRSSgLOeaEOMHH3h6lwBQbfv93gnI"
+        />
       </Head>
       <body>
         <Recoil>
