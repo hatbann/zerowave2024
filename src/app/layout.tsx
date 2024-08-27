@@ -10,6 +10,7 @@ import Recoil from "@/components/common/Recoil";
 import "../styles/globals.scss";
 import Script from "next/script";
 import Head from "next/head";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Zerowave",
@@ -98,6 +99,7 @@ export default function RootLayout({
       <body>
         <Recoil>
           <Header />
+          <SpeedInsights />
           <Main>{children}</Main>
         </Recoil>
       </body>
