@@ -1,6 +1,6 @@
 /** @format */
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.scss";
 import Main from "./main";
@@ -11,6 +11,13 @@ import "../styles/globals.scss";
 import Script from "next/script";
 import Head from "next/head";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   title: "Zerowave",
@@ -41,6 +48,15 @@ export const metadata: Metadata = {
   verification: {
     google: "UGkMOJplAyKAPziRSSgLOeaEOMHH3h6lwBQbfv93gnI",
   },
+  alternates: {
+    canonical: "https://zerowave2024.vercel.app",
+  },
+  authors: [
+    {
+      url: "https://github.com/hatbann",
+      name: "Hyebin Cho",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -97,10 +113,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLdData, null, 2),
           }}
-        />
-        <meta
-          name="google-site-verification"
-          content="UGkMOJplAyKAPziRSSgLOeaEOMHH3h6lwBQbfv93gnI"
         />
       </Head>
       <body>
