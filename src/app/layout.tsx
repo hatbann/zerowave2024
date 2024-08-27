@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     "환경",
     "environment",
   ],
+  verification: {
+    google: "UGkMOJplAyKAPziRSSgLOeaEOMHH3h6lwBQbfv93gnI",
+  },
 };
 
 export default function RootLayout({
@@ -83,9 +86,6 @@ export default function RootLayout({
     articleSection: "제로웨이브",
     articleBody: "제로웨이브를 통해 일상 속에서 환경보호를 실천해보세요",
     thumbnailUrl: "/images/png/mainLogo.png",
-    other: {
-      "google-site-verification": "UGkMOJplAyKAPziRSSgLOeaEOMHH3h6lwBQbfv93gnI",
-    },
   };
 
   return (
