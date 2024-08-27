@@ -20,12 +20,12 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Zerowave",
+  title: "zerowave",
   description: "제로웨이브를 통해 일상 속에서 환경보호를 실천해보세요",
   openGraph: {
     title: "Zerowave",
     description: "제로웨이브를 통해 일상 속에서 환경보호를 실천해보세요",
-    url: "https://zerowave2024.vercel.app/",
+    url: "https://zerowave.vercel.app/",
     siteName: "Zerowave",
     images: [
       {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     google: "UGkMOJplAyKAPziRSSgLOeaEOMHH3h6lwBQbfv93gnI",
   },
   alternates: {
-    canonical: "https://zerowave2024.vercel.app",
+    canonical: "https://zerowave.vercel.app",
   },
   authors: [
     {
@@ -67,7 +67,7 @@ export default function RootLayout({
   const jsonLdData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Zerowave",
+    name: "zerowave",
     description:
       "제로웨이브를 통해 일상 속에서 환경보호를 실천해보세요. 제로웨이스트를 실천할 수 있는 곳을 방문하고 후기를 작성해 제로웨이스트를 널리 공유하는 공간 입니다.",
     keywords: [
@@ -78,7 +78,7 @@ export default function RootLayout({
       "환경",
       "environment",
     ],
-    url: "https://zerowave2024.vercel.app/",
+    url: "https://zerowave.vercel.app/",
     image: "/images/png/mainLogo.png",
     author: {
       "@type": "Hyebin Cho",
@@ -97,7 +97,7 @@ export default function RootLayout({
     headline: "제로웨이브",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://zerowave2024.vercel.app/",
+      "@id": "https://zerowave.vercel.app/",
     },
     articleSection: "제로웨이브",
     articleBody: "제로웨이브를 통해 일상 속에서 환경보호를 실천해보세요",
@@ -107,7 +107,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-        <link rel="canonical" href="https://zerowave2024.vercel.app/" />
+        <link rel="canonical" href="https://zerowave.vercel.app/" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
