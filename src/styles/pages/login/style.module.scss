@@ -1,5 +1,8 @@
-@import '../../layout';
-@import '../../variables';
+/** @format */
+
+@import "../../layout";
+@import "../../variables";
+@import "../../viewsize";
 
 .container {
   @include flex-column(flex-start, center);
@@ -11,6 +14,10 @@
 
   h1 {
     font-size: 30px;
+  }
+
+  @include under-tablet {
+    height: calc(100vh - 75px);
   }
 }
 

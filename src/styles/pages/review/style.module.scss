@@ -1,5 +1,8 @@
-@import '../../layout';
-@import '../../variables';
+/** @format */
+
+@import "../../layout";
+@import "../../variables";
+@import "../../viewsize";
 
 .container {
   width: 100%;
@@ -7,6 +10,10 @@
   padding: 10px 30px;
   @include flex-column(flex-start, center);
   gap: 30px;
+
+  @include under-tablet {
+    height: calc(100vh - 75px);
+  }
 }
 
 .title {
@@ -43,6 +50,10 @@
   padding: 0 10px;
   border: 1px solid black;
   border-radius: 10px;
+
+  @include mobile {
+    width: 100%;
+  }
 }
 
 .list {
@@ -59,6 +70,8 @@
   span {
     text-align: center;
     font-size: 15px;
+    display: inline-block;
+    @include make-ellipsis;
 
     &.title {
       text-align: start;

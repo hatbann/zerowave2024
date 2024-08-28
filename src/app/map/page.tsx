@@ -32,6 +32,7 @@ const page = () => {
   const [placeLists, setPlaceLists] = useState<PlaceListType[]>([]);
   const [selectedId, setSelectedId] = useState(-1);
   const [category, setCategory] = useState<"restaurant" | "cafe">("restaurant");
+  const [isOpenList, setIsOpenList] = useState(false);
 
   const onSuccessLoadLoc = (location: {
     coords: { latitude: number; longitude: number };
@@ -194,6 +195,13 @@ const page = () => {
 
   return (
     <div className={style["container"]}>
+      <button
+        className={style["open-list-btn"]}
+        onClick={() => {
+          setIsOpenList((prev) => !prev);
+        }}>
+        리스트 {isOpenList ? "닫기" : "열기"}
+      </button>
       <div className={style["top"]}>
         <div className={style["title"]}>
           <h1>Zerowave Map</h1>
@@ -202,7 +210,12 @@ const page = () => {
         <p>제로웨이스트를 실천하는 공간들을 추가해주세요</p>
       </div>
       <div className={style["map-container"]}>
-        <div className={style["location-lists"]}>
+        <div
+          className={
+            !isOpenList
+              ? `${style["location-lists"]} ${style["hidden"]}`
+              : style["location-lists"]
+          }>
           <div className={style["btn-container"]}>
             <button
               onClick={() => {
@@ -229,7 +242,7 @@ const page = () => {
         </div>
         <div
           id="map"
-          style={{ width: "100%", height: "100%" }}
+          /*           style={{ width: "100%", height: "100%" }} */
           className={style["map"]}></div>
       </div>
     </div>

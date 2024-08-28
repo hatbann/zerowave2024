@@ -1,6 +1,8 @@
-@import '../../layout';
-@import '../../variables';
+/** @format */
 
+@import "../../layout";
+@import "../../variables";
+@import "../../viewsize";
 .container {
   width: 100%;
   height: calc(100vh - 95px);
@@ -10,6 +12,16 @@
     font-size: 25px;
   }
   padding: 0 30px;
+  position: relative;
+
+  @include under-tablet {
+    padding: 10px 30px;
+    height: calc(100vh - 75px);
+  }
+
+  @include mobile {
+    gap: 15px;
+  }
 }
 
 .top {
@@ -33,6 +45,11 @@
     font-size: 14px;
     color: #7fa17f;
   }
+
+  @include mobile {
+    height: 80px;
+    justify-content: flex-end;
+  }
 }
 
 .map-container {
@@ -40,6 +57,12 @@
   height: 700px;
   @include flex-row(flex-start, center);
   gap: 20px;
+
+  @include under-tablet {
+    position: relative;
+    height: calc(100vh - 80px);
+    @include flex-column(flex-start, flex-end);
+  }
 }
 
 .location-lists {
@@ -62,6 +85,21 @@
     background-color: transparent;
     border-radius: 10px;
     margin: 5px 0px;
+  }
+
+  @include under-tablet {
+    width: 100%;
+    height: calc(100% - 40px);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 250px;
+    background-color: white;
+    z-index: 200;
+
+    &.hidden {
+      display: none;
+    }
   }
 }
 
@@ -86,11 +124,34 @@
   }
 }
 
+.open-list-btn {
+  @include desktop {
+    display: none;
+  }
+
+  position: absolute;
+  top: 0;
+  right: 30px;
+
+  border: none;
+  background-color: $sub-color;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+  width: 100px;
+  border-radius: 8px;
+}
+
 .map {
   width: calc(100% - 300px - 20px);
   height: 100%;
   border: 1px solid $main-dark-color;
   border-radius: 10px;
+
+  @include under-tablet {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .focus {

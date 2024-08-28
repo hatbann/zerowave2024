@@ -10,7 +10,7 @@
   padding: 0 20px;
 
   @include mobile {
-    gap: 60px;
+    gap: 100px;
     padding: 0 25px 40px 25px;
   }
 }
@@ -317,6 +317,6 @@
   @include mobile {
     gap: 30px;
     height: auto;
-    min-height: calc(100vh - 95px);
+    min-height: calc(100vh - 75px);
   }
 }

@@ -1,8 +1,14 @@
-@import '../layout';
+/** @format */
 
+@import "../layout";
+@import "../viewsize";
 .header-container {
   @include flex-row(space-between, center);
   padding: 20px;
+
+  @include under-tablet {
+    padding: 15px;
+  }
 }
 
 .header-left {
@@ -12,6 +18,10 @@
     width: 75px;
     height: auto;
     cursor: pointer;
+
+    @include under-tablet {
+      width: 60px;
+    }
   }
 
   .menus {
@@ -31,6 +41,15 @@
         color: #00ed5d;
       }
     }
+
+    @include under-tablet {
+      font-size: 17px;
+      gap: 20px;
+    }
+  }
+
+  @include under-tablet {
+    gap: 30px;
   }
 }
 
