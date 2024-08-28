@@ -34,7 +34,7 @@ const page = () => {
       const API_URL =
         process.env.NODE_ENV === "production"
           ? "/api"
-          : process.env.NEXT_PUBLIC_API_URL!;
+          : `${process.env.NEXT_PUBLIC_API_URL}/api`!;
 
       const res: { user: any; token: any } = await fetch(
         `${API_URL}/user/signin`,

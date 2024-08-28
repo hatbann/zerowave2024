@@ -21,7 +21,7 @@ const Header = () => {
     const API_URL =
       process.env.NODE_ENV === "production"
         ? "/api"
-        : process.env.NEXT_PUBLIC_API_URL!;
+        : `${process.env.NEXT_PUBLIC_API_URL}/api`!;
 
     const res = await fetch(`${API_URL}/user/logout`, {
       method: "GET",
