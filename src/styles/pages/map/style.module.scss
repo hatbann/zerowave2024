@@ -23,6 +23,7 @@
 
   @include mobile {
     gap: 15px;
+    padding-top: 35px;
   }
 }
 
@@ -59,7 +60,7 @@
   }
 
   @include mobile {
-    margin-top: 30px;
+    /*   margin-top: 30px; */
     justify-content: flex-end;
   }
 }
