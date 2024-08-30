@@ -6,13 +6,13 @@
 
 .container {
   width: 100%;
-  height: calc(100vh - 95px);
+  height: calc($dvh * 100 - 95px);
   padding: 10px 30px;
   @include flex-column(flex-start, center);
   gap: 30px;
 
   @include under-tablet {
-    height: calc(100vh - 75px);
+    height: calc($dvh * 100 - 75px);
   }
 }
 

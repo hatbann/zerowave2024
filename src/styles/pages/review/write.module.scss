@@ -1,9 +1,11 @@
-@import '../../layout';
-@import '../../variables';
+/** @format */
+
+@import "../../layout";
+@import "../../variables";
 
 .container {
   width: 100%;
-  height: calc(100vh - 95px);
+  height: calc($dvh * 100 - 95px);
   padding: 10px 30px;
   @include flex-column(flex-start, center);
   gap: 30px;
@@ -92,7 +94,7 @@
 
 .empty {
   width: 100%;
-  height: calc(100vh - 200px);
+  height: calc($dvh * 100 - 200px);
   @include flex-column(center, center);
   gap: 30px;
 
@@ -126,7 +128,7 @@
 
 .success-container {
   width: 100%;
-  height: calc(100vh - 200px);
+  height: calc($dvh * 100 - 200px);
   @include flex-column(center, center);
   gap: 30px;
 

@@ -32,6 +32,7 @@ const Header = () => {
 
     resetUser();
     setIsOpenPopup(false);
+    router.replace("/");
   };
 
   return (

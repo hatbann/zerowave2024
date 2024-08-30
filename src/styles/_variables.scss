@@ -1,8 +1,13 @@
+/** @format */
+
 // break point
 $breakpoint-mobile: 768px;
 $breakpoint-desktop: 1200px;
 $desktop-max-width: 1440px;
 $moblie-max-width: 400px;
+
+// dvh
+$dvh: var(--vh, 1vh);
 
 $font-size-h1: 48px;
 $font-size-h2: 32px;

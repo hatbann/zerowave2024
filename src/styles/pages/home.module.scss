@@ -17,7 +17,7 @@
 
 .section {
   width: 100%;
-  height: 100vh;
+  height: calc($dvh * 100);
   @include flex-row(center, center);
   gap: 50px;
 
@@ -317,6 +317,6 @@
   @include mobile {
     gap: 30px;
     height: auto;
-    min-height: calc(100vh - 75px);
+    min-height: calc($dvh * 100 - 75px);
   }
 }

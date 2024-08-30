@@ -6,13 +6,13 @@
 
 .container {
   width: 100vw;
-  height: calc(100vh - 95px);
+  height: calc($dvh * 100 - 95px);
   @include flex-column(center, center);
   gap: 50px;
 
   @include under-tablet {
     padding: 20px;
-    height: calc(100vh - 75px);
+    height: calc($dvh * 100 - 75px);
     gap: 30px;
   }
 }
@@ -66,6 +66,7 @@
   width: 100%;
   border-bottom: 1px solid $grayscale-black40;
   @include flex-row(space-between, center);
+  gap: 10px;
   padding: 20px 0;
 
   .header-item {
@@ -83,6 +84,37 @@
 
     .item-value {
       color: $grayscale-black80;
+    }
+
+    &:first-child {
+      max-width: 80%;
+      .item-label {
+        width: 30px;
+      }
+
+      .item-value {
+        width: calc(100% - 40px);
+        @include make-ellipsis;
+      }
+
+      @include mobile {
+        max-width: 70%;
+      }
+    }
+
+    &:nth-child(2) {
+      max-width: 20%;
+      .item-label {
+        width: 45px;
+      }
+
+      .item-value {
+        width: calc(100% - 60px);
+        @include make-ellipsis;
+      }
+      @include mobile {
+        max-width: 30%;
+      }
     }
 
     @include mobile {

@@ -6,18 +6,25 @@
 
 .container {
   width: 100%;
-  min-height: calc(100vh - 95px);
+  min-height: calc($dvh * 100 - 95px);
   padding: 50px;
   @include flex-column(flex-start, flex-start);
   gap: 60px;
 
   @include under-tablet {
-    height: calc(100vh - 75px);
+    height: calc($dvh * 100 - 75px);
   }
 
   @include mobile {
     padding: 50px 20px;
   }
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  @include flex-row(center, center);
+  font-size: 18px;
 }
 
 .profile,
@@ -94,6 +101,7 @@
         padding: 0 10px;
         border-bottom: 1px solid $grayscale-black30;
         cursor: pointer;
+        border-radius: 8px;
         span {
           &:nth-child(1) {
             width: 70%;

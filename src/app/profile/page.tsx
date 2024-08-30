@@ -17,6 +17,7 @@ type userInfo = {
 
 const page = () => {
   const user = useRecoilValue(userState);
+  const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState<userInfo>({
     email: "",
     nickname: "",
@@ -63,6 +64,7 @@ const page = () => {
         email: userRes.user.email,
         nickname: userRes.user.nickname,
       });
+      setIsLoading(false);
     };
 
     getProfile();
@@ -70,54 +72,62 @@ const page = () => {
 
   return (
     <div className={style["container"]}>
-      <div className={style["profile"]}>
-        <div className={style["title"]}>
-          <h4>프로필</h4>
-        </div>
-        <div className={style["info"]}>
-          <div>
-            <span className={style["label"]}>닉네임</span> | {userInfo.nickname}
-          </div>
-          <div>
-            <span className={style["label"]}>이메일</span> |{" "}
-            {userInfo.email}
-          </div>
-        </div>
-      </div>
-      <div className={style["my-review"]}>
-        <div className={style["title"]}>
-          <h4>최근 리뷰</h4>
-        </div>
-        {reviews.length !== 0 ? (
-          <div className={style["table"]}>
-            <div className={style["head"]}>
-              <span>제목</span>
-              <span>작성일자</span>
-              <span>조회수</span>
+      {isLoading ? (
+        <div className={style["loading"]}>loading...</div>
+      ) : (
+        <>
+          {" "}
+          <div className={style["profile"]}>
+            <div className={style["title"]}>
+              <h4>프로필</h4>
             </div>
-            <div className={style["body"]}>
-              {reviews.map((review, idx) => {
-                return (
-                  <div
-                    className={style["item"]}
-                    key={idx}
-                    onClick={() => {
-                      router.push(`/review/${review._id}`);
-                    }}>
-                    <span>{review.title}</span>
-                    <span>
-                      {moment(review.created_at).format("YYYY-MM-DD")}
-                    </span>
-                    <span>{review.views}회</span>
-                  </div>
-                );
-              })}
+            <div className={style["info"]}>
+              <div>
+                <span className={style["label"]}>닉네임</span> |{" "}
+                {userInfo.nickname}
+              </div>
+              <div>
+                <span className={style["label"]}>이메일</span> |{" "}
+                {userInfo.email}
+              </div>
             </div>
           </div>
-        ) : (
-          <div>작성한 글이 없습니다</div>
-        )}
-      </div>
+          <div className={style["my-review"]}>
+            <div className={style["title"]}>
+              <h4>최근 리뷰</h4>
+            </div>
+            {reviews.length !== 0 ? (
+              <div className={style["table"]}>
+                <div className={style["head"]}>
+                  <span>제목</span>
+                  <span>작성일자</span>
+                  <span>조회수</span>
+                </div>
+                <div className={style["body"]}>
+                  {reviews.map((review, idx) => {
+                    return (
+                      <div
+                        className={style["item"]}
+                        key={idx}
+                        onClick={() => {
+                          router.push(`/review/${review._id}`);
+                        }}>
+                        <span>{review.title}</span>
+                        <span>
+                          {moment(review.created_at).format("YYYY-MM-DD")}
+                        </span>
+                        <span>{review.views}회</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div>작성한 글이 없습니다</div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

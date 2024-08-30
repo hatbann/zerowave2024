@@ -1,8 +1,10 @@
-@import '../../layout';
-@import '../../variables';
+/** @format */
+
+@import "../../layout";
+@import "../../variables";
 .container {
   width: 100%;
-  height: calc(100vh - 60px);
+  height: calc($dvh * 100 - 60px);
   @include flex-column(center, center);
   gap: 50px;
 }

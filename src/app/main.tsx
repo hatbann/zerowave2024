@@ -10,6 +10,7 @@ import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import style from "../styles/common/main.module.scss";
 import { selectedPlaceState } from "@/states/place";
+import { useSetVh } from "@/hooks/useSetVh";
 
 const Main = ({ children }: { children: React.ReactNode }) => {
   const pagesNeedSignedIn: string[] = ["/profile", "/review", "/review/write"];
@@ -59,7 +60,6 @@ const Main = ({ children }: { children: React.ReactNode }) => {
         });
       }
     };
-
     getUserInfo();
     const address = localStorage.getItem("address");
     const place = localStorage.getItem("placeName");
@@ -70,6 +70,7 @@ const Main = ({ children }: { children: React.ReactNode }) => {
       });
     }
   }, []);
+  useSetVh();
 
   if (loading) {
     return <div className={style["loading"]}>loading...</div>;
