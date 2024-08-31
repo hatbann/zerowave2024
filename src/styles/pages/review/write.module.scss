@@ -1,14 +1,19 @@
 /** @format */
 
-@import "../../layout";
-@import "../../variables";
+@import '../../layout';
+@import '../../variables';
+@import '../../viewsize';
 
 .container {
   width: 100%;
-  height: calc($dvh * 100 - 95px);
+  min-height: calc($dvh * 100 - 95px);
   padding: 10px 30px;
   @include flex-column(flex-start, center);
   gap: 30px;
+
+  /*   @include mobile {
+    width: 100vw;
+  } */
 }
 
 .head {
@@ -89,6 +94,10 @@
     &:hover {
       background-color: $grayscale-black20;
     }
+  }
+
+  @include mobile {
+    width: 100%;
   }
 }
 

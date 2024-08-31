@@ -1,12 +1,17 @@
 /** @format */
 
-@import "../../layout";
-@import "../../variables";
+@import '../../layout';
+@import '../../variables';
+@import '../../viewsize';
 .container {
   width: 100%;
   height: calc($dvh * 100 - 60px);
   @include flex-column(center, center);
   gap: 50px;
+
+  @include mobile {
+    padding: 20px 0 50px 0;
+  }
 }
 
 .content-wrapper {
@@ -14,6 +19,10 @@
   height: 600px;
   @include flex-column(center, center);
   gap: 20px;
+
+  @include mobile {
+    width: 100%;
+  }
 }
 
 .content {
