@@ -1,8 +1,8 @@
 /** @format */
 
-@import "../../layout";
-@import "../../variables";
-@import "../../viewsize";
+@import '../../layout';
+@import '../../variables';
+@import '../../viewsize';
 
 .container {
   width: 100vw;
@@ -87,7 +87,7 @@
     }
 
     &:first-child {
-      max-width: 80%;
+      width: 80%;
       .item-label {
         width: 30px;
       }

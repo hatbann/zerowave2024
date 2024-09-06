@@ -1,9 +1,9 @@
 /** @format */
 
-@import "../font";
-@import "../variables";
-@import "../layout";
-@import "../viewsize";
+@import '../font';
+@import '../variables';
+@import '../layout';
+@import '../viewsize';
 
 .home-container {
   @include flex-column(flex-start, center);
@@ -231,7 +231,7 @@
         gap: 40px;
         width: 320px;
 
-        img {
+        svg {
           width: 250px;
         }
 
